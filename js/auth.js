@@ -55,7 +55,7 @@ function getTodayPassword() {
 
     const year = today.getFullYear();
 
-    return `${day}/${month}/${year}`;
+    return `${day}${month}${year}`;
 
 }
 
