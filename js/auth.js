@@ -73,11 +73,14 @@ function login() {
 
     if (enteredPassword === todayPassword) {
 
-        // Login successful
-
         sessionStorage.setItem(
             "teamWebsiteLogin",
             "true"
+        );
+
+        sessionStorage.setItem(
+            "teamWebsiteLoginTime",
+            Date.now().toString()
         );
 
         window.location.href = "home.html";
