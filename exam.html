@@ -145,8 +145,132 @@
     </div>
 
 
-    <script src="js/app.js"></script>
+<script src="js/app.js"></script>
+
+
+<script>
+
+    /* ========================================
+       GOOGLE APPS SCRIPT API
+    ======================================== */
+
+    const API_URL =
+        "https://script.google.com/macros/s/AKfycbzciz7yky6XqQhksOICETxOBLPMXdAR-Cco3H6QRSqf3QRl26kpI64qTBRJvriFNr-E/exec";
+
+
+    /* ========================================
+       LOAD EXAM FOLDERS
+    ======================================== */
+
+    async function loadExamFolders() {
+
+        const grid =
+            document.getElementById(
+                "equipmentGrid"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL +
+                    "?action=examFolders"
+                );
+
+
+            const folders =
+                await response.json();
+
+
+            displayExamFolders(
+                folders
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error loading exam folders:",
+                error
+            );
+
+
+            grid.innerHTML = `
+                <div class="exam-loading">
+                    ไม่สามารถโหลดข้อมูลได้
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* ========================================
+       DISPLAY FOLDERS
+    ======================================== */
+
+    function displayExamFolders(
+        folders
+    ) {
+
+        const grid =
+            document.getElementById(
+                "equipmentGrid"
+            );
+
+
+        grid.innerHTML = "";
+
+
+        folders.forEach(
+            folder => {
+
+                const card =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                card.className =
+                    "exam-folder-card";
+
+
+                card.innerHTML = `
+
+                    <div
+                        class="exam-folder-icon"
+                    >
+                        📁
+                    </div>
+
+                    <div
+                        class="exam-folder-name"
+                    >
+                        ${folder.name}
+                    </div>
+
+                `;
+
+
+                grid.appendChild(
+                    card
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ========================================
+       START
+    ======================================== */
+
+    loadExamFolders();
+
+</script>
 
 </body>
-
 </html>
