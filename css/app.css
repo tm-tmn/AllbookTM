@@ -453,59 +453,37 @@ body {
     .sidebar .logo {
         display: block;
     }
-
-
     .sidebar .nav-text {
         display: inline;
     }
-
-
     .sidebar .nav-item {
         justify-content: flex-start;
     }
-
-
     .sidebar .logout-button {
         justify-content: flex-start;
     }
-
-
     .sidebar-header {
         justify-content: space-between;
-
         padding: 0 18px;
     }
-
-
     .mobile-menu-button {
         display: block;
     }
-
-
     .topbar {
         padding: 0 16px;
     }
-
-
     .topbar h1 {
         font-size: 20px;
     }
-
-
     .content {
         padding: 16px;
     }
-
-
     .welcome-card {
         padding: 20px;
     }
-
-
     .welcome-card h2 {
         font-size: 20px;
     }
-
 }
 
 /* ========================================
@@ -513,85 +491,149 @@ body {
 ======================================== */
 
 .exam-folder-grid {
-
     display: grid;
-
     grid-template-columns:
         repeat(
             auto-fit,
             minmax(200px, 1fr)
         );
-
     gap: 20px;
-
     margin-top: 24px;
 
 }
 
-
 .exam-folder-card {
 
     border: none;
-
     padding: 28px 20px;
-
     border-radius: 14px;
-
     background: white;
-
     box-shadow:
         0 4px 15px
         rgba(0, 0, 0, 0.08);
-
     cursor: pointer;
-
     text-align: center;
-
     transition:
         transform 0.2s,
         box-shadow 0.2s;
 
 }
 
-
 .exam-folder-card:hover {
 
     transform:
         translateY(-4px);
-
+   
     box-shadow:
         0 8px 22px
         rgba(0, 0, 0, 0.12);
-
 }
 
-
 .exam-folder-icon {
-
     font-size: 42px;
-
     margin-bottom: 14px;
 
 }
 
-
 .exam-folder-name {
-
     font-size: 17px;
-
     font-weight: 600;
-
     word-break: break-word;
+}
+
+.exam-loading {
+    padding: 40px;
+    text-align: center;
+    opacity: 0.7;
 
 }
 
+/* ========================================
+   EXAM FOLDER & IMAGE GRID LAYOUT (RESPONSIVE)
+======================================== */
 
-.exam-loading {
+/* Grid สำหรับ Folder เครื่องมือ */
+.exam-folder-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
 
-    padding: 40px;
+/* Grid สำหรับรายการรูปภาพ (บน PC จะกระจายออกเป็นหลายคอลัมน์) */
+.exam-image-grid {
+    display: grid;
+    /* บน PC กำหนดความกว้างขั้นต่ำของแต่ละการ์ดไว้ที่ 280px (จะแบ่ง 3-4 คอลัมน์ตามความกว้างจอ) */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
+    align-items: start;
+}
 
+/* การ์ดแสดงรูปภาพ */
+.exam-image-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.exam-image-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* กรอบใส่รูปภาพอัตราส่วน 4:3 ให้ดูสวยงามเป็นระเบียบ */
+.exam-image-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.exam-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ครอบรูปให้เต็มกรอบแบบไม่เสียอัตราส่วน */
+    transition: transform 0.3s ease;
+}
+
+.exam-image-card:hover .exam-image-wrapper img {
+    transform: scale(1.05); /* Zoom เล็กน้อยเมื่อ Hover */
+}
+
+/* ชื่อรูปภาพใต้รูป */
+.exam-image-name {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
     text-align: center;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* แสดงไม่เกิน 2 บรรทัด */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
-    opacity: 0.7;
-
+/* ปรับแต่งสำหรับ Mobile (หน้าจอแคบกว่า 640px) ให้เหลือ 1 คอลัมน์ */
+@media (max-width: 640px) {
+    .exam-image-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .exam-image-wrapper {
+        height: 180px;
+    }
 }
