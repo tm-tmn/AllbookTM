@@ -2,18 +2,74 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam</title>
-
     <link rel="stylesheet" href="css/app.css">
+    <style>
+        /* สไตล์เสริมสำหรับ Modal Viewer และปุ่มย้อนกลับ */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #1e293b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: 0.2s;
+        }
 
+        .back-button:hover {
+            background: #334155;
+        }
+
+        /* Fullscreen Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-modal-caption {
+            color: white;
+            margin-top: 15px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: white;
+            font-size: 32px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,256 +77,235 @@
     <div class="app">
 
         <aside id="sidebar" class="sidebar">
-
             <div class="sidebar-header">
-
-                <div class="logo">
-                    TEAM
-                </div>
-
-                <button
-                    id="sidebarToggle"
-                    class="sidebar-toggle"
-                >
-                    ☰
-                </button>
-
+                <div class="logo">TEAM</div>
+                <button id="sidebarToggle" class="sidebar-toggle">☰</button>
             </div>
 
             <nav class="navigation">
-
-                <a
-                    href="home.html"
-                    class="nav-item"
-                >
+                <a href="home.html" class="nav-item">
                     <span class="nav-icon">🏠</span>
                     <span class="nav-text">Home</span>
                 </a>
-
-                <a
-                    href="service-manual.html"
-                    class="nav-item"
-                >
+                <a href="service-manual.html" class="nav-item">
                     <span class="nav-icon">📖</span>
                     <span class="nav-text">Service Manual</span>
                 </a>
-
-                <a
-                    href="troubleshooting.html"
-                    class="nav-item"
-                >
+                <a href="troubleshooting.html" class="nav-item">
                     <span class="nav-icon">🔧</span>
                     <span class="nav-text">Troubleshooting</span>
                 </a>
-
-                <a
-                    href="exam.html"
-                    class="nav-item active"
-                >
+                <a href="exam.html" class="nav-item active">
                     <span class="nav-icon">📝</span>
                     <span class="nav-text">Exam</span>
                 </a>
-
             </nav>
 
             <div class="sidebar-footer">
-
-                <button
-                    id="logoutButton"
-                    class="logout-button"
-                >
+                <button id="logoutButton" class="logout-button">
                     <span class="nav-icon">⇥</span>
                     <span class="nav-text">Logout</span>
                 </button>
-
             </div>
-
         </aside>
 
-
-        <div
-            id="sidebarOverlay"
-            class="sidebar-overlay"
-        ></div>
-
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
         <main class="main-content">
 
             <header class="topbar">
-
-                <button
-                    id="mobileMenuButton"
-                    class="mobile-menu-button"
-                >
-                    ☰
-                </button>
-
-                <h1>
-                    Exam
-                </h1>
-
+                <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
+                <h1 id="pageTitle">Exam</h1>
             </header>
-
 
             <section class="content">
 
-    <div class="welcome-card">
+                <div class="welcome-card" id="welcomeCard">
+                    <h2 id="folderTitleHeader">Exam</h2>
+                    <p id="folderSubtitle">Select equipment to view exam answer images.</p>
+                </div>
 
-        <h2>
-            Exam
-        </h2>
+                <!-- Container สำหรับแสดงปุ่มย้อนกลับเมื่อกดเข้าโฟลเดอร์ -->
+                <div id="actionContainer"></div>
 
-        <p>
-            Select equipment to view exam answer images.
-        </p>
+                <!-- Container หลักสำหรับ Folder Grid และ Image Grid -->
+                <div id="equipmentGrid" class="exam-folder-grid">
+                    <div class="exam-loading">Loading...</div>
+                </div>
 
-    </div>
-
-
-    <div
-        id="equipmentGrid"
-        class="exam-folder-grid"
-    >
-
-        <div class="exam-loading">
-            Loading...
-        </div>
-
-    </div>
-
-</section>
+            </section>
 
         </main>
 
     </div>
 
+    <!-- Modal ดูรูปภาพขยายใหญ่ -->
+    <div id="imageModal" class="image-modal">
+        <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
+        <img id="modalImage" src="" alt="Exam Image View">
+        <div id="modalCaption" class="image-modal-caption"></div>
+    </div>
 
-<script src="js/app.js"></script>
+    <script src="js/app.js"></script>
 
+    <script>
+        /* ========================================
+           GOOGLE APPS SCRIPT API
+        ======================================== */
+        const API_URL = "https://script.google.com/macros/s/AKfycbzciz7yky6XqQhksOICETxOBLPMXdAR-Cco3H6QRSqf3QRl26kpI64qTBRJvriFNr-E/exec";
 
-<script>
+        /* ========================================
+           LOAD EXAM FOLDERS
+        ======================================== */
+        async function loadExamFolders() {
+            const grid = document.getElementById("equipmentGrid");
+            const actionContainer = document.getElementById("actionContainer");
+            const folderTitleHeader = document.getElementById("folderTitleHeader");
+            const folderSubtitle = document.getElementById("folderSubtitle");
 
-    /* ========================================
-       GOOGLE APPS SCRIPT API
-    ======================================== */
+            actionContainer.innerHTML = "";
+            folderTitleHeader.textContent = "Exam";
+            folderSubtitle.textContent = "Select equipment to view exam answer images.";
+            grid.className = "exam-folder-grid";
+            grid.innerHTML = `<div class="exam-loading">Loading...</div>`;
 
-    const API_URL =
-        "https://script.google.com/macros/s/AKfycbzciz7yky6XqQhksOICETxOBLPMXdAR-Cco3H6QRSqf3QRl26kpI64qTBRJvriFNr-E/exec";
+            try {
+                const response = await fetch(API_URL + "?action=examFolders");
+                const folders = await response.json();
 
+                displayExamFolders(folders);
 
-    /* ========================================
-       LOAD EXAM FOLDERS
-    ======================================== */
-
-    async function loadExamFolders() {
-
-        const grid =
-            document.getElementById(
-                "equipmentGrid"
-            );
-
-
-        try {
-
-            const response =
-                await fetch(
-                    API_URL +
-                    "?action=examFolders"
-                );
-
-
-            const folders =
-                await response.json();
-
-
-            displayExamFolders(
-                folders
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Error loading exam folders:",
-                error
-            );
-
-
-            grid.innerHTML = `
-                <div class="exam-loading">
-                    ไม่สามารถโหลดข้อมูลได้
-                </div>
-            `;
-
+            } catch (error) {
+                console.error("Error loading exam folders:", error);
+                grid.innerHTML = `<div class="exam-loading">ไม่สามารถโหลดข้อมูลได้</div>`;
+            }
         }
 
-    }
+        /* ========================================
+           DISPLAY FOLDERS
+        ======================================== */
+        function displayExamFolders(folders) {
+            const grid = document.getElementById("equipmentGrid");
+            grid.innerHTML = "";
 
-
-    /* ========================================
-       DISPLAY FOLDERS
-    ======================================== */
-
-    function displayExamFolders(
-        folders
-    ) {
-
-        const grid =
-            document.getElementById(
-                "equipmentGrid"
-            );
-
-
-        grid.innerHTML = "";
-
-
-        folders.forEach(
-            folder => {
-
-                const card =
-                    document.createElement(
-                        "button"
-                    );
-
-
-                card.className =
-                    "exam-folder-card";
-
+            folders.forEach(folder => {
+                const card = document.createElement("button");
+                card.className = "exam-folder-card";
 
                 card.innerHTML = `
-
-                    <div
-                        class="exam-folder-icon"
-                    >
-                        📁
-                    </div>
-
-                    <div
-                        class="exam-folder-name"
-                    >
-                        ${folder.name}
-                    </div>
-
+                    <div class="exam-folder-icon">📁</div>
+                    <div class="exam-folder-name">${folder.name}</div>
                 `;
 
+                // เพิ่ม Event Listener เพื่อกดดูรูปภาพในโฟลเดอร์
+                card.addEventListener("click", () => {
+                    loadExamImages(folder.id, folder.name);
+                });
 
-                grid.appendChild(
-                    card
-                );
+                grid.appendChild(card);
+            });
+        }
 
+        /* ========================================
+           LOAD EXAM IMAGES
+        ======================================== */
+        async function loadExamImages(folderId, folderName) {
+            const grid = document.getElementById("equipmentGrid");
+            const actionContainer = document.getElementById("actionContainer");
+            const folderTitleHeader = document.getElementById("folderTitleHeader");
+            const folderSubtitle = document.getElementById("folderSubtitle");
+
+            folderTitleHeader.textContent = folderName;
+            folderSubtitle.textContent = `Showing exam images for ${folderName}`;
+
+            // สร้างปุ่มย้อนกลับ
+            actionContainer.innerHTML = `
+                <button class="back-button" onclick="loadExamFolders()">
+                    ← กลับไปเลือกเครื่องมือ
+                </button>
+            `;
+
+            grid.className = "exam-image-grid";
+            grid.innerHTML = `<div class="exam-loading">กำลังโหลดรูปภาพ...</div>`;
+
+            try {
+                const response = await fetch(`${API_URL}?action=examImages&folderId=${folderId}`);
+                const images = await response.json();
+
+                if (!images || images.length === 0) {
+                    grid.innerHTML = `<div class="exam-loading">ไม่พบรูปภาพในโฟลเดอร์นี้</div>`;
+                    return;
+                }
+
+                displayExamImages(images);
+
+            } catch (error) {
+                console.error("Error loading exam images:", error);
+                grid.innerHTML = `<div class="exam-loading">ไม่สามารถโหลดรูปภาพได้</div>`;
             }
-        );
+        }
 
-    }
+        /* ========================================
+           DISPLAY IMAGES THUMBNAIL
+        ======================================== */
+        function displayExamImages(images) {
+            const grid = document.getElementById("equipmentGrid");
+            grid.innerHTML = "";
 
+            images.forEach(img => {
+                const item = document.createElement("div");
+                item.className = "exam-image-card";
 
-    /* ========================================
-       START
-    ======================================== */
+                const imageUrl = img.url ? `${img.url}=s400` : `https://lh3.googleusercontent.com/d/${img.id}=s400`;
+                const fullImageUrl = img.url ? `${img.url}=s1600` : `https://lh3.googleusercontent.com/d/${img.id}=s1600`;
 
-    loadExamFolders();
+                item.innerHTML = `
+                    <div class="exam-image-wrapper">
+                        <img src="${imageUrl}" alt="${img.name}" loading="lazy">
+                    </div>
+                    <div class="exam-image-name">${img.name}</div>
+                `;
 
-</script>
+                // คลิกที่รูปเพื่อเปิด Modal Viewer
+                item.addEventListener("click", () => {
+                    openImageModal(fullImageUrl, img.name);
+                });
+
+                grid.appendChild(item);
+            });
+        }
+
+        /* ========================================
+           IMAGE MODAL CONTROLLER
+        ======================================== */
+        function openImageModal(url, title) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const modalCaption = document.getElementById("modalCaption");
+
+            modalImg.src = url;
+            modalCaption.textContent = title;
+            modal.classList.add("active");
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById("imageModal");
+            modal.classList.remove("active");
+        }
+
+        // ปิด Modal เมื่อคลิกพื้นที่ว่างรอบๆ
+        document.getElementById("imageModal").addEventListener("click", (e) => {
+            if (e.target.id === "imageModal") {
+                closeImageModal();
+            }
+        });
+
+        /* ========================================
+           START
+        ======================================== */
+        loadExamFolders();
+    </script>
 
 </body>
+
 </html>
