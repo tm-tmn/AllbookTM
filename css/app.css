@@ -204,6 +204,31 @@ body {
 }
 
 /* ========================================
+   RESPONSIVE (DISABLE HOVER ON MOBILE)
+======================================== */
+@media (max-width: 767px) {
+    .sidebar {
+        position: fixed;
+        width: 260px;
+        transform: translateX(-100%);
+    }
+
+    .sidebar:hover {
+        width: 260px;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    .sidebar .logo,
+    .sidebar .nav-text {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ========================================
    MAIN CONTENT & WELCOME CARD
 ======================================== */
 
