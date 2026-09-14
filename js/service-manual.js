@@ -1,7 +1,6 @@
 const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzciz7yky6XqQhksOICETxOBLPMXdAR-Cco3H6QRSqf3QRl26kpI64qTBRJvriFNr-E/exec"; 
 
 let navigationHistory = [];
-let currentPdfFileId = "";
 let currentViewMode = localStorage.getItem("manualViewMode") || "tiles";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -144,40 +143,31 @@ function navigateBack() {
     }
 }
 
-function openPdfModal(fileId, fileName) {
-    currentPdfFileId = fileId;
-    
+// เปิด Modal แสดงไฟล์ PDF
+function openPdfModal(fileId, fileName, webViewLink) {
     const modal = document.getElementById("pdfModal");
     const modalTitle = document.getElementById("pdfModalTitle");
     const iframe = document.getElementById("pdfIframe");
-    const searchInput = document.getElementById("pdfSearchInput");
+    const openBtn = document.getElementById("pdfOpenNewTabBtn");
 
     modalTitle.textContent = fileName;
-    if (searchInput) searchInput.value = "";
     
+    // ตั้งค่าลิงก์ปุ่ม Open
+    if (openBtn) {
+        openBtn.href = webViewLink || `https://drive.google.com/file/d/${fileId}/view`;
+    }
+    
+    // โหลด PDF Preview ใน iframe
     iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
 
     modal.classList.add("active");
 }
 
-function handlePdfSearch(event) {
-    if (event.key === "Enter") {
-        const query = event.target.value.trim();
-        const iframe = document.getElementById("pdfIframe");
-        
-        if (query && currentPdfFileId) {
-            iframe.src = `https://drive.google.com/file/d/${currentPdfFileId}/preview?q=${encodeURIComponent(query)}`;
-        } else if (currentPdfFileId) {
-            iframe.src = `https://drive.google.com/file/d/${currentPdfFileId}/preview`;
-        }
-    }
-}
-
+// ปิด Modal
 function closePdfModal() {
     const modal = document.getElementById("pdfModal");
     const iframe = document.getElementById("pdfIframe");
     
     modal.classList.remove("active");
     iframe.src = "";
-    currentPdfFileId = "";
 }
