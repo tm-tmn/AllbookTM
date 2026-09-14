@@ -143,7 +143,6 @@ function navigateBack() {
     }
 }
 
-// เปิด Modal แสดงไฟล์ PDF
 function openPdfModal(fileId, fileName, webViewLink) {
     const modal = document.getElementById("pdfModal");
     const modalTitle = document.getElementById("pdfModalTitle");
@@ -152,13 +151,19 @@ function openPdfModal(fileId, fileName, webViewLink) {
 
     modalTitle.textContent = fileName;
     
-    // ตั้งค่าลิงก์ปุ่ม Open
     if (openBtn) {
         openBtn.href = webViewLink || `https://drive.google.com/file/d/${fileId}/view`;
     }
     
-    // โหลด PDF Preview ใน iframe
+    // รีเซ็ต src ก่อนเพื่อป้องกันการจำแคชขยะ
+    iframe.src = "about:blank";
+
+    // เลือกลิงก์แบบใดแบบหนึ่ง:
+    // ตัวเลือก A: ลิงก์มาตรฐาน (แนะนำเปิด Public สิทธิ์ไว้)
     iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+
+    // ตัวเลือก B: หากยังเจอปัญหาสิทธิ์ข้ามโดเมน ให้ลองใช้ Google Docs Viewer
+    // iframe.src = `https://docs.google.com/viewer?id=${fileId}&embedded=true`;
 
     modal.classList.add("active");
 }
