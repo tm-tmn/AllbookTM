@@ -1,291 +1,298 @@
+/* ========================================
+   RESET & BASE STYLES
+======================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: #0b0f17;
+    color: #f8fafc;
+    min-height: 100vh;
     overflow: hidden;
 }
 
-
-/* =========================
-   Main Page
-========================= */
-
+/* ========================================
+   MAIN PAGE & AMBIENT GLOW
+======================================== */
 .login-page {
     position: relative;
-
     width: 100vw;
     height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #0f172a,
-            #1e293b,
-            #334155
-        );
+    background: #090d16;
+    overflow: hidden;
 }
 
+/* แสงฟุ้งพื้นหลังสไตล์ Neon Glow */
+.ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.glow-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+    top: -10%;
+    left: 20%;
+    animation: float 12s infinite alternate ease-in-out;
+}
+
+.glow-2 {
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
+    bottom: -10%;
+    right: 20%;
+    animation: float 15s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, 50px) scale(1.1); }
+}
 
 .overlay {
     position: absolute;
-
     inset: 0;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(255,255,255,0.08),
-            transparent 50%
-        );
+    background: radial-gradient(circle at center, transparent 0%, #090d16 90%);
+    pointer-events: none;
 }
 
-
-/* =========================
-   Welcome Box
-========================= */
-
+/* ========================================
+   WELCOME BOX (GLASSMORPHISM)
+======================================== */
 .welcome-box {
     position: relative;
-
-    z-index: 2;
-
+    z-index: 10;
     text-align: center;
-
-    color: white;
-
-    padding: 50px;
+    width: 100%;
+    max-width: 460px;
+    padding: 48px 40px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #818cf8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+}
 
 .welcome-box h1 {
-    font-size: 56px;
-
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: #ffffff;
+    line-height: 1.1;
     margin-bottom: 12px;
-
-    letter-spacing: 2px;
 }
 
+.welcome-box h1 span {
+    color: #6366f1;
+}
 
 .welcome-box p {
-    font-size: 18px;
-
-    opacity: 0.75;
-
-    margin-bottom: 40px;
+    font-size: 15px;
+    color: #94a3b8;
+    margin-bottom: 32px;
+    font-weight: 400;
 }
 
-
-.welcome-box button {
-    border: none;
-
-    padding: 15px 38px;
-
-    border-radius: 8px;
-
-    background: white;
-
-    color: #1e293b;
-
+/* รองรับทั้ง id #enterButton และ class .btn-primary */
+.welcome-box button,
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: #ffffff;
     font-size: 16px;
-
-    font-weight: bold;
-
+    font-weight: 600;
+    border: none;
+    border-radius: 16px;
     cursor: pointer;
-
-    transition: 0.25s;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.35);
 }
 
-
-.welcome-box button:hover {
+.welcome-box button:hover,
+.btn-primary:hover {
     transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.25);
+    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.5);
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
 }
 
+.welcome-box button:active,
+.btn-primary:active {
+    transform: translateY(0);
+}
 
-/* =========================
-   Login Modal
-========================= */
-
+/* ========================================
+   LOGIN MODAL
+======================================== */
 .modal {
     display: none;
-
     position: fixed;
-
-    z-index: 10;
-
     inset: 0;
-
-    background: rgba(0,0,0,0.65);
-
+    z-index: 100;
+    background: rgba(9, 13, 22, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     justify-content: center;
-
     align-items: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
 }
-
 
 .modal.active {
     display: flex;
+    opacity: 1;
 }
-
 
 .login-box {
     position: relative;
-
-    width: 380px;
-
-    max-width: 90%;
-
-    padding: 35px;
-
-    border-radius: 14px;
-
-    background: white;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,0.35);
-
-    animation: loginOpen 0.2s ease;
+    width: 100%;
+    max-width: 400px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-
-@keyframes loginOpen {
-
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-
+.modal.active .login-box {
+    transform: scale(1);
+    animation: none; /* ใช้ Transition แทน Animation เก่าเพื่อความลื่นไหล */
 }
-
-
-.login-box h2 {
-    font-size: 28px;
-
-    color: #1e293b;
-
-    margin-bottom: 8px;
-}
-
-
-.login-description {
-    color: #64748b;
-
-    font-size: 14px;
-
-    margin-bottom: 25px;
-}
-
 
 .close-button {
     position: absolute;
-
-    top: 15px;
-    right: 18px;
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 28px;
-
-    color: #64748b;
-
+    top: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    font-size: 20px;
+    border-radius: 50%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    line-height: 1;
 }
 
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
 
+.login-box h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.login-description,
+.modal-header p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+/* ========================================
+   INPUTS & BUTTONS IN MODAL
+======================================== */
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    text-align: left;
 }
-
 
 .input-group label {
     display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-bottom: 8px;
 }
-
 
 .input-group input {
     width: 100%;
-
-    padding: 12px 14px;
-
-    border: 1px solid #cbd5e1;
-
-    border-radius: 7px;
-
-    font-size: 16px;
-
+    padding: 14px 16px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 15px;
     outline: none;
-
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
-
 
 .input-group input:focus {
-    border-color: #64748b;
-
-    box-shadow:
-        0 0 0 3px rgba(100,116,139,0.15);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    background: #0f172a;
 }
 
+.login-error {
+    color: #f87171;
+    font-size: 13px;
+    min-height: 20px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
 
 .login-button {
     width: 100%;
-
-    padding: 12px;
-
-    border: none;
-
-    border-radius: 7px;
-
-    background: #1e293b;
-
-    color: white;
-
+    padding: 14px;
+    background: #6366f1;
+    color: #ffffff;
     font-size: 15px;
-
-    font-weight: bold;
-
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
     cursor: pointer;
-
-    transition: 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
 }
-
 
 .login-button:hover {
-    background: #334155;
+    background: #4f46e5;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
 }
 
-
-.login-error {
-    min-height: 20px;
-
-    margin-bottom: 8px;
-
-    color: #dc2626;
-
-    font-size: 13px;
+.login-button:active {
+    transform: translateY(0);
 }
