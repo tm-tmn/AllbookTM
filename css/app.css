@@ -59,12 +59,14 @@ body {
 }
 
 /* ========================================
-   SIDEBAR (MODERN DARK GLASS)
+   SIDEBAR (AUTO-HIDE ON HOVER)
 ======================================== */
 
 .sidebar {
-    width: 250px;
-    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 72px; /* ความกว้างปกติ (ซ่อนเหลือแค่ไอคอน) */
     background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -73,16 +75,17 @@ body {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 10;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    z-index: 100;
+    overflow: hidden; /* ป้องกันข้อความล้นเวลาพับ */
 }
 
-.sidebar.collapsed {
-    width: 72px;
-}
-
-/* ========================================
-   SIDEBAR HEADER
+/* เมื่อเอาเมาส์ไปชี้ (Hover) ให้ขยายออก */
+.sidebar:hover {
+    width: 250px;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+}/* ========================================
+   SIDEBAR ELEMENTS ANIMATION
 ======================================== */
 
 .sidebar-header {
@@ -90,8 +93,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 18px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 250px; /* ยึดความกว้างข้างในไว้ */
 }
 
 .logo {
@@ -99,42 +103,28 @@ body {
     font-weight: 800;
     letter-spacing: 2.5px;
     white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.25s ease;
     background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.sidebar.collapsed .logo {
+/* แสดง Logo เมื่อ Hover */
+.sidebar:hover .logo {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ซ่อนปุ่ม Toggle แบบเดิม เพราะใช้ Hover แทนแล้ว */
+.sidebar-toggle {
     display: none;
 }
 
-.sidebar-toggle {
-    width: 36px;
-    height: 36px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #94a3b8;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.sidebar-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-}
-
-/* ========================================
-   NAVIGATION LINKS
-======================================== */
-
 .navigation {
     flex: 1;
-    padding: 20px 12px;
+    padding: 20px 10px;
 }
 
 .nav-item {
@@ -142,7 +132,7 @@ body {
     align-items: center;
     gap: 14px;
     min-height: 48px;
-    padding: 10px 14px;
+    padding: 10px 12px;
     margin-bottom: 6px;
     border-radius: 12px;
     color: #94a3b8;
@@ -150,6 +140,7 @@ body {
     font-size: 14px;
     font-weight: 600;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .nav-item:hover {
@@ -164,31 +155,28 @@ body {
 }
 
 .nav-icon {
-    width: 24px;
-    min-width: 24px;
+    width: 28px;
+    min-width: 28px;
     text-align: center;
     font-size: 18px;
 }
 
+/* ซ่อนข้อความ เมนูกระชับ */
 .nav-text {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.2s ease;
     white-space: nowrap;
 }
 
-.sidebar.collapsed .nav-item {
-    justify-content: center;
-    padding: 10px 0;
+/* คลายข้อความออกมาเมื่อ Hover */
+.sidebar:hover .nav-text {
+    opacity: 1;
+    transform: translateX(0);
 }
-
-.sidebar.collapsed .nav-text {
-    display: none;
-}
-
-/* ========================================
-   SIDEBAR FOOTER
-======================================== */
 
 .sidebar-footer {
-    padding: 16px 12px;
+    padding: 16px 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -198,7 +186,7 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 10px 14px;
+    padding: 10px 12px;
     border: none;
     border-radius: 12px;
     background: transparent;
@@ -207,16 +195,12 @@ body {
     font-size: 14px;
     font-weight: 600;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .logout-button:hover {
     background: rgba(239, 68, 68, 0.15);
     color: #f87171;
-}
-
-.sidebar.collapsed .logout-button {
-    justify-content: center;
-    padding: 10px 0;
 }
 
 /* ========================================
