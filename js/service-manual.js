@@ -1,6 +1,7 @@
 const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzciz7yky6XqQhksOICETxOBLPMXdAR-Cco3H6QRSqf3QRl26kpI64qTBRJvriFNr-E/exec"; 
 
 let navigationHistory = [];
+let currentPdfFileId = "";
 let currentViewMode = localStorage.getItem("manualViewMode") || "tiles";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -143,17 +144,33 @@ function navigateBack() {
     }
 }
 
-function openPdfModal(fileId, fileName, webViewLink) {
+function openPdfModal(fileId, fileName) {
+    currentPdfFileId = fileId;
+    
     const modal = document.getElementById("pdfModal");
     const modalTitle = document.getElementById("pdfModalTitle");
     const iframe = document.getElementById("pdfIframe");
-    const openNewTabBtn = document.getElementById("pdfOpenNewTabBtn");
+    const searchInput = document.getElementById("pdfSearchInput");
 
     modalTitle.textContent = fileName;
+    if (searchInput) searchInput.value = "";
+    
     iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
-    openNewTabBtn.href = webViewLink || `https://drive.google.com/file/d/${fileId}/view`;
 
     modal.classList.add("active");
+}
+
+function handlePdfSearch(event) {
+    if (event.key === "Enter") {
+        const query = event.target.value.trim();
+        const iframe = document.getElementById("pdfIframe");
+        
+        if (query && currentPdfFileId) {
+            iframe.src = `https://drive.google.com/file/d/${currentPdfFileId}/preview?q=${encodeURIComponent(query)}`;
+        } else if (currentPdfFileId) {
+            iframe.src = `https://drive.google.com/file/d/${currentPdfFileId}/preview`;
+        }
+    }
 }
 
 function closePdfModal() {
@@ -162,4 +179,5 @@ function closePdfModal() {
     
     modal.classList.remove("active");
     iframe.src = "";
+    currentPdfFileId = "";
 }
