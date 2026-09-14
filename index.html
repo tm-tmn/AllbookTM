@@ -3,70 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Team Website</title>
-
+    <title>Team Portal</title>
+    <!-- ใช้ฟอนต์ Plus Jakarta Sans ให้ดูสปอร์ตและทันสมัย -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css">
 </head>
-
 <body>
 
     <main class="login-page">
-
+        <!-- พื้นหลังสไตล์ Ambient Gradient Glow -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
         <div class="overlay"></div>
 
         <section class="welcome-box">
-
-            <h1>Welcome</h1>
-
-            <p>Team Internal Website</p>
-
-            <button id="enterButton">
-                Login
+            <div class="badge">✦ INTERNAL SYSTEM</div>
+            <h1>Welcome Back<span>.</span></h1>
+            <p>Team Knowledge & Service Portal</p>
+            <button id="enterButton" class="btn-primary">
+                <span>Get Started</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
-
         </section>
-
     </main>
-
 
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
-
         <div class="login-box">
-
-            <button id="closeButton" class="close-button">
-                &times;
-            </button>
-
-            <h2>Login</h2>
+            <button id="closeButton" class="close-button" aria-label="Close">&times;</button>
+            
+            <div class="modal-header">
+                <h2>Authentication</h2>
+                <p>Enter passkey to access workspace</p>
+            </div>
 
             <div class="input-group">
-
-                <label for="password">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    autocomplete="off"
-                >
-
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="••••••••" 
+                        autocomplete="off"
+                    >
+                </div>
             </div>
 
             <p id="loginError" class="login-error"></p>
 
             <button id="loginButton" class="login-button">
-                Login
+                Unlock Workspace
             </button>
-
         </div>
-
     </div>
 
-
     <script src="js/auth.js"></script>
-
 </body>
 </html>
