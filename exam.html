@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam</title>
+    <title>Exam Answers</title>
+    <!-- เพิ่ม Font Plus Jakarta Sans ให้เหมือนหน้า Index -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/exam.css">
 </head>
@@ -13,9 +18,13 @@
 
     <div class="app">
 
+        <!-- Ambient Glow Background -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
-                <div class="logo">AllbookTM</div>
+                <div class="logo">TEAM</div>
                 <button id="sidebarToggle" class="sidebar-toggle">☰</button>
             </div>
 
@@ -54,7 +63,6 @@
         
                 <div class="welcome-card" id="welcomeCard">
                     <div class="welcome-card-header">
-                        <!-- ปุ่ม Mobile Menu ที่ย้ายมาไว้ข้างหัวข้อ -->
                         <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
         
                         <div class="welcome-card-text">
@@ -66,7 +74,7 @@
                     </div>
                 </div>
         
-                <!-- Container หลักสำหรับ Folder Grid และ Image Grid -->
+                <!-- Container สำหรับ Folder Grid และ Image Grid -->
                 <div id="equipmentGrid" class="exam-folder-grid">
                     <div class="exam-loading">Loading...</div>
                 </div>
