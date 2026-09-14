@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navigateToFolder("", "Service Manual", true);
 });
 
+// ฟังก์ชันเปลี่ยน View Mode ผ่าน Dropdown Select
 function setViewMode(mode) {
     currentViewMode = mode;
     localStorage.setItem("manualViewMode", mode);
@@ -16,31 +17,24 @@ function setViewMode(mode) {
         grid.className = `manual-grid view-${mode}`;
     }
 
-    document.querySelectorAll(".view-btn").forEach(btn => {
-        if (btn.dataset.mode === mode) {
-            btn.classList.add("active");
-        } else {
-            btn.classList.remove("active");
-        }
-    });
+    // ซิงค์ค่าไปที่ Dropdown หากฟังก์ชันนี้ถูกเรียกจากส่วนอื่น
+    const select = document.getElementById("viewModeSelect");
+    if (select && select.value !== mode) {
+        select.value = mode;
+    }
 }
 
+// สร้าง HTML Controls ที่เปลี่ยนจาก Button Group เป็น Dropdown Select
 function renderControlsHTML(showBack) {
     return `
         <div class="action-controls-wrapper">
-            <div class="view-mode-selector">
-                <button class="view-btn ${currentViewMode === 'tiles' ? 'active' : ''}" data-mode="tiles" onclick="setViewMode('tiles')" title="Tiles View">
-                    <span>🔲 Tiles</span>
-                </button>
-                <button class="view-btn ${currentViewMode === 'list' ? 'active' : ''}" data-mode="list" onclick="setViewMode('list')" title="List View">
-                    <span>☰ List</span>
-                </button>
-                <button class="view-btn ${currentViewMode === 'detail' ? 'active' : ''}" data-mode="detail" onclick="setViewMode('detail')" title="Detail View">
-                    <span>📑 Detail</span>
-                </button>
-                <button class="view-btn ${currentViewMode === 'content' ? 'active' : ''}" data-mode="content" onclick="setViewMode('content')" title="Content View">
-                    <span>📰 Content</span>
-                </button>
+            <div class="view-selector-container">
+                <select id="viewModeSelect" class="view-select" onchange="setViewMode(this.value)">
+                    <option value="tiles" ${currentViewMode === 'tiles' ? 'selected' : ''}>⏹️ Tiles</option>
+                    <option value="list" ${currentViewMode === 'list' ? 'selected' : ''}>☰ List</option>
+                    <option value="detail" ${currentViewMode === 'detail' ? 'selected' : ''}>📑 Detail</option>
+                    <option value="content" ${currentViewMode === 'content' ? 'selected' : ''}>📰 Content</option>
+                </select>
             </div>
             ${showBack ? `
                 <button class="back-button" onclick="navigateBack()">
@@ -155,20 +149,12 @@ function openPdfModal(fileId, fileName, webViewLink) {
         openBtn.href = webViewLink || `https://drive.google.com/file/d/${fileId}/view`;
     }
     
-    // รีเซ็ต src ก่อนเพื่อป้องกันการจำแคชขยะ
     iframe.src = "about:blank";
-
-    // เลือกลิงก์แบบใดแบบหนึ่ง:
-    // ตัวเลือก A: ลิงก์มาตรฐาน (แนะนำเปิด Public สิทธิ์ไว้)
     iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
-
-    // ตัวเลือก B: หากยังเจอปัญหาสิทธิ์ข้ามโดเมน ให้ลองใช้ Google Docs Viewer
-    // iframe.src = `https://docs.google.com/viewer?id=${fileId}&embedded=true`;
 
     modal.classList.add("active");
 }
 
-// ปิด Modal
 function closePdfModal() {
     const modal = document.getElementById("pdfModal");
     const iframe = document.getElementById("pdfIframe");
