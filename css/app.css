@@ -8,25 +8,17 @@
     box-sizing: border-box;
 }
 
-
 html,
 body {
     width: 100%;
     min-height: 100%;
 }
 
-
 body {
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: Arial, Helvetica, sans-serif;
     background: #f1f5f9;
-
     color: #1e293b;
 }
-
 
 /* ========================================
    APP
@@ -34,10 +26,8 @@ body {
 
 .app {
     display: flex;
-
     min-height: 100vh;
 }
-
 
 /* ========================================
    SIDEBAR
@@ -45,28 +35,18 @@ body {
 
 .sidebar {
     width: 250px;
-
     min-height: 100vh;
-
     background: #0f172a;
-
     color: white;
-
     display: flex;
-
     flex-direction: column;
-
     flex-shrink: 0;
-
-    transition:
-        width 0.25s ease;
+    transition: width 0.25s ease;
 }
-
 
 .sidebar.collapsed {
     width: 72px;
 }
-
 
 /* ========================================
    SIDEBAR HEADER
@@ -74,61 +54,38 @@ body {
 
 .sidebar-header {
     height: 70px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     padding: 0 18px;
-
-    border-bottom:
-        1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
-
 
 .logo {
     font-size: 20px;
-
     font-weight: bold;
-
     letter-spacing: 2px;
-
     white-space: nowrap;
 }
-
 
 .sidebar.collapsed .logo {
     display: none;
 }
 
-
 .sidebar-toggle {
     width: 36px;
-
     height: 36px;
-
     border: none;
-
     border-radius: 6px;
-
-    background:
-        rgba(255, 255, 255, 0.08);
-
+    background: rgba(255, 255, 255, 0.08);
     color: white;
-
     cursor: pointer;
-
     font-size: 18px;
 }
 
-
 .sidebar-toggle:hover {
-    background:
-        rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
 }
-
 
 /* ========================================
    NAVIGATION
@@ -136,77 +93,51 @@ body {
 
 .navigation {
     flex: 1;
-
     padding: 15px 10px;
 }
 
-
 .nav-item {
     display: flex;
-
     align-items: center;
-
     gap: 14px;
-
     min-height: 46px;
-
     padding: 10px 12px;
-
     margin-bottom: 5px;
-
     border-radius: 7px;
-
     color: #cbd5e1;
-
     text-decoration: none;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
-
 
 .nav-item:hover {
     background: #1e293b;
-
     color: white;
 }
-
 
 .nav-item.active {
     background: #334155;
-
     color: white;
 }
 
-
 .nav-icon {
     width: 28px;
-
     min-width: 28px;
-
     text-align: center;
-
     font-size: 18px;
 }
 
-
 .nav-text {
     white-space: nowrap;
-
     font-size: 14px;
 }
-
 
 .sidebar.collapsed .nav-item {
     justify-content: center;
 }
 
-
 .sidebar.collapsed .nav-text {
     display: none;
 }
-
 
 /* ========================================
    SIDEBAR FOOTER
@@ -214,52 +145,33 @@ body {
 
 .sidebar-footer {
     padding: 10px;
-
-    border-top:
-        1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
-
 
 .logout-button {
     width: 100%;
-
     min-height: 46px;
-
     display: flex;
-
     align-items: center;
-
     gap: 14px;
-
     padding: 10px 12px;
-
     border: none;
-
     border-radius: 7px;
-
     background: transparent;
-
     color: #cbd5e1;
-
     cursor: pointer;
-
     font-size: 14px;
-
     text-align: left;
 }
 
-
 .logout-button:hover {
     background: #1e293b;
-
     color: white;
 }
-
 
 .sidebar.collapsed .logout-button {
     justify-content: center;
 }
-
 
 /* ========================================
    MAIN CONTENT
@@ -267,95 +179,69 @@ body {
 
 .main-content {
     flex: 1;
-
     min-width: 0;
-
     min-height: 100vh;
 }
 
-
 /* ========================================
-   TOPBAR
-======================================== */
-
-.topbar {
-    height: 70px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    padding: 0 25px;
-
-    background: white;
-
-    border-bottom:
-        1px solid #e2e8f0;
-}
-
-
-.topbar h1 {
-    font-size: 22px;
-
-    font-weight: 600;
-}
-
-
-.mobile-menu-button {
-    display: none;
-
-    width: 40px;
-
-    height: 40px;
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 22px;
-
-    cursor: pointer;
-}
-
-
-/* ========================================
-   CONTENT
+   CONTENT & WELCOME CARD
 ======================================== */
 
 .content {
     padding: 30px;
 }
 
-
 .welcome-card {
     background: white;
-
-    padding: 30px;
-
-    border-radius: 10px;
-
+    padding: 24px 30px;
+    border-radius: 12px;
     border: 1px solid #e2e8f0;
-
-    box-shadow:
-        0 2px 6px rgba(15, 23, 42, 0.04);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
 }
 
+.welcome-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.welcome-card-text {
+    flex: 1;
+}
 
 .welcome-card h2 {
-    margin-bottom: 10px;
-
+    margin-bottom: 6px;
     font-size: 24px;
+    color: #0f172a;
 }
-
 
 .welcome-card p {
     color: #64748b;
-
-    line-height: 1.6;
+    line-height: 1.5;
+    font-size: 14px;
 }
 
+/* ปุ่ม Mobile Menu เมื่อย้ายมาอยู่ใน Welcome Card */
+.mobile-menu-button {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 20px;
+    color: #334155;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.2s ease;
+}
+
+.mobile-menu-button:hover {
+    background-color: #f8fafc;
+}
 
 /* ========================================
    MOBILE OVERLAY
@@ -363,181 +249,142 @@ body {
 
 .sidebar-overlay {
     display: none;
-
     position: fixed;
-
     inset: 0;
-
     z-index: 90;
-
-    background:
-        rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.45);
 }
-
 
 .sidebar-overlay.active {
     display: block;
 }
 
-
 /* ========================================
-   TABLET
+   TABLET RESPONSIVE
 ======================================== */
 
 @media (max-width: 1023px) {
-
     .sidebar {
         width: 72px;
     }
 
-
     .sidebar .logo {
         display: none;
     }
-
 
     .sidebar .nav-text {
         display: none;
     }
 
-
     .sidebar .nav-item {
         justify-content: center;
     }
-
 
     .sidebar .logout-button {
         justify-content: center;
     }
 
-
     .sidebar-header {
         justify-content: center;
-
         padding: 0;
     }
-
 }
 
-
 /* ========================================
-   MOBILE
+   MOBILE RESPONSIVE
 ======================================== */
 
 @media (max-width: 767px) {
-
     .sidebar {
         position: fixed;
-
         top: 0;
         left: 0;
-
         z-index: 100;
-
         width: 260px;
-
-        transform:
-            translateX(-100%);
-
-        transition:
-            transform 0.25s ease;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
     }
-
 
     .sidebar.mobile-open {
-        transform:
-            translateX(0);
+        transform: translateX(0);
     }
-
 
     .sidebar .logo {
         display: block;
     }
+
     .sidebar .nav-text {
         display: inline;
     }
+
     .sidebar .nav-item {
         justify-content: flex-start;
     }
+
     .sidebar .logout-button {
         justify-content: flex-start;
     }
+
     .sidebar-header {
         justify-content: space-between;
         padding: 0 18px;
     }
+
+    /* แสดงปุ่ม Hamburger Menu ในมือถือ */
     .mobile-menu-button {
-        display: block;
+        display: inline-flex;
     }
-    .topbar {
-        padding: 0 16px;
-    }
-    .topbar h1 {
-        font-size: 20px;
-    }
+
     .content {
         padding: 16px;
     }
+
     .welcome-card {
-        padding: 20px;
+        padding: 16px 20px;
     }
+
     .welcome-card h2 {
         font-size: 20px;
     }
 }
 
 /* ========================================
-   EXAM
+   EXAM FOLDER & IMAGE GRID LAYOUT
 ======================================== */
 
 .exam-folder-grid {
     display: grid;
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(200px, 1fr)
-        );
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
+    width: 100%;
     margin-top: 24px;
-
 }
 
 .exam-folder-card {
-
-    border: none;
+    border: 1px solid #e2e8f0;
     padding: 28px 20px;
     border-radius: 14px;
     background: white;
-    box-shadow:
-        0 4px 15px
-        rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
     cursor: pointer;
     text-align: center;
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .exam-folder-card:hover {
-
-    transform:
-        translateY(-4px);
-   
-    box-shadow:
-        0 8px 22px
-        rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
 
 .exam-folder-icon {
     font-size: 42px;
     margin-bottom: 14px;
-
 }
 
 .exam-folder-name {
     font-size: 17px;
     font-weight: 600;
+    color: #1e293b;
     word-break: break-word;
 }
 
@@ -545,32 +392,17 @@ body {
     padding: 40px;
     text-align: center;
     opacity: 0.7;
-
 }
 
-/* ========================================
-   EXAM FOLDER & IMAGE GRID LAYOUT (RESPONSIVE)
-======================================== */
-
-/* Grid สำหรับ Folder เครื่องมือ */
-.exam-folder-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    width: 100%;
-}
-
-/* Grid สำหรับรายการรูปภาพ (บน PC จะกระจายออกเป็นหลายคอลัมน์) */
 .exam-image-grid {
     display: grid;
-    /* บน PC กำหนดความกว้างขั้นต่ำของแต่ละการ์ดไว้ที่ 280px (จะแบ่ง 3-4 คอลัมน์ตามความกว้างจอ) */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
     width: 100%;
+    margin-top: 24px;
     align-items: start;
 }
 
-/* การ์ดแสดงรูปภาพ */
 .exam-image-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -589,7 +421,6 @@ body {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* กรอบใส่รูปภาพอัตราส่วน 4:3 ให้ดูสวยงามเป็นระเบียบ */
 .exam-image-wrapper {
     width: 100%;
     height: 200px;
@@ -604,15 +435,14 @@ body {
 .exam-image-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* ครอบรูปให้เต็มกรอบแบบไม่เสียอัตราส่วน */
+    object-fit: cover;
     transition: transform 0.3s ease;
 }
 
 .exam-image-card:hover .exam-image-wrapper img {
-    transform: scale(1.05); /* Zoom เล็กน้อยเมื่อ Hover */
+    transform: scale(1.05);
 }
 
-/* ชื่อรูปภาพใต้รูป */
 .exam-image-name {
     margin-top: 12px;
     font-size: 14px;
@@ -621,12 +451,11 @@ body {
     text-align: center;
     word-break: break-all;
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* แสดงไม่เกิน 2 บรรทัด */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* ปรับแต่งสำหรับ Mobile (หน้าจอแคบกว่า 640px) ให้เหลือ 1 คอลัมน์ */
 @media (max-width: 640px) {
     .exam-image-grid {
         grid-template-columns: 1fr;
