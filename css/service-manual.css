@@ -386,3 +386,62 @@
     line-height: 1.4;
 }
 
+
+.pdf-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ตกแต่งช่อง Search ใน Modal Header */
+.pdf-search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: #94a3b8;
+    transition: all 0.2s ease;
+}
+
+.pdf-search-box:focus-within {
+    border-color: #3b82f6;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    color: #3b82f6;
+}
+
+.pdf-search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 13px;
+    width: 160px;
+}
+
+.pdf-search-box input::placeholder {
+    color: #64748b;
+}
+
+/* ปุ่มปิด Modal */
+.pdf-close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #94a3b8;
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pdf-close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+}
