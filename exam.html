@@ -131,6 +131,7 @@
             visibility: visible;
             transform: translateY(0);
         }
+        
     </style>
 </head>
 
@@ -173,33 +174,31 @@
 
         <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-        <main class="main-content">
-
-            <header class="topbar">
-                <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
-                <h1 id="pageTitle">Exam</h1>
-            </header>
+       <main class="main-content">
 
             <section class="content">
-
+        
                 <div class="welcome-card" id="welcomeCard">
                     <div class="welcome-card-header">
+                        <!-- ปุ่ม Mobile Menu ที่ย้ายมาไว้ข้างหัวข้อ -->
+                        <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
+        
                         <div class="welcome-card-text">
                             <h2 id="folderTitleHeader">Exam</h2>
                             <p id="folderSubtitle">Select equipment to view exam answer images.</p>
                         </div>
-                        <!-- ย้ายปุ่มย้อนกลับมาไว้ตรงนี้ -->
+        
                         <div id="actionContainer"></div>
                     </div>
                 </div>
-
+        
                 <!-- Container หลักสำหรับ Folder Grid และ Image Grid -->
                 <div id="equipmentGrid" class="exam-folder-grid">
                     <div class="exam-loading">Loading...</div>
                 </div>
-
+        
             </section>
-
+        
         </main>
 
     </div>
