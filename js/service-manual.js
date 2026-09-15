@@ -132,8 +132,6 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
         grid.innerHTML = `<div class="manual-loading">No folders or PDF documents found inside.</div>`;
         return;
     }
-
-    // สร้าง Folder Cards
     folders.forEach(folder => {
         const card = document.createElement("div");
         card.className = "manual-card";
@@ -142,14 +140,15 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
             <div class="manual-name" title="${folder.name}">${folder.name}</div>
             <span class="manual-tag">Folder</span>
         `;
+
         const currentPath = navigationHistory[navigationHistory.length - 1].path;
-        const newPath = [...currentPath, folder.name];
+        const folderIdentifier = folder.id || folder.name;
+        const newPath = [...currentPath, folderIdentifier];
         
         card.onclick = () => navigateToFolder(newPath, folder.name, false);
         grid.appendChild(card);
     });
 
-    // สร้าง File Cards
     files.forEach(file => {
         const card = document.createElement("div");
         card.className = "manual-card";
@@ -158,7 +157,7 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
             <div class="manual-name" title="${file.name}">${file.name}</div>
             <span class="manual-tag">PDF</span>
         `;
-        // ส่ง Direct URL ของ R2 ไปเปิดใน Modal
+
         card.onclick = () => openPdfModal(file.url, file.name);
         grid.appendChild(card);
     });
