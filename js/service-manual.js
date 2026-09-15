@@ -72,15 +72,13 @@ function renderControlsHTML(showBack) {
 
 function findNodeByPath(pathArray) {
     if (!allManualsData || !pathArray || pathArray.length === 0) return null;
+    
+    let current = { children: allManualsData };
 
-    let current = allManualsData.find(
-        item => (item.type === 'folder' || !item.type) && item.name === pathArray[0]
-    );
-
-    for (let i = 1; i < pathArray.length; i++) {
+    for (const segment of pathArray) {
         if (current && current.children) {
             current = current.children.find(
-                item => item.type === 'folder' && item.name === pathArray[i]
+                item => item.id === segment || item.name === segment
             );
         } else {
             return null;
