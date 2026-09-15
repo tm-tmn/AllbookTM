@@ -4,27 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Manual</title>
+    <title>Service Manual - AllBookTM</title>
     <!-- Font Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/service-manual.css">
+    <link rel="stylesheet" href="css/exam.css">
 </head>
 
 <body>
 
     <div class="app">
 
-        <!-- Background Ambient Glow -->
+        <!-- Ambient Glow Background -->
         <div class="ambient-glow glow-1"></div>
         <div class="ambient-glow glow-2"></div>
 
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
-                <div class="logo">AllbookTM</div>
+                <div class="logo">AllBookTM</div>
                 <button id="sidebarToggle" class="sidebar-toggle">☰</button>
             </div>
 
@@ -61,59 +61,28 @@
 
             <section class="content">
         
-                <!-- Header Card -->
                 <div class="welcome-card" id="welcomeCard">
                     <div class="welcome-card-header">
                         <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
         
                         <div class="welcome-card-text">
-                            <h2 id="manualTitleHeader">Service Manual</h2>
-                            <p id="manualSubtitle">Select an equipment category to view service manuals & documents.</p>
+                            <h2 id="folderTitleHeader">Service Manual</h2>
+                            <p id="folderSubtitle">Select equipment to view manuals and documents.</p>
                         </div>
         
-                        <div id="manualActionContainer"></div>
+                        <div id="actionContainer"></div>
                     </div>
                 </div>
         
-                <!-- Grid Container สำหรับแสดง Folder และไฟล์ PDF -->
-                <div id="manualGrid" class="manual-grid">
-                    <div class="manual-loading">Loading service manuals...</div>
+                <!-- Container สำหรับแสดงโฟลเดอร์และไฟล์ Manual -->
+                <div id="equipmentGrid" class="exam-folder-grid">
+                    <div class="exam-loading">Loading manuals...</div>
                 </div>
         
             </section>
         
         </main>
 
-    </div>
-
-    <!-- PDF Modal -->
-    <div id="pdfModal" class="pdf-modal">
-        <div class="pdf-modal-container">
-            <div class="pdf-modal-header">
-                <div class="pdf-title-group">
-                    <span class="pdf-badge">PDF DOCUMENT</span>
-                    <h3 id="pdfModalTitle">Document Title</h3>
-                </div>
-                
-                <div class="pdf-modal-actions">
-                    <!-- ปุ่ม Open (เปิดใน Google Drive / แท็บใหม่) -->
-                    <a id="pdfOpenNewTabBtn" href="#" target="_blank" class="pdf-btn">
-                        <span style="margin-right: 4px;">↗</span> Open
-                    </a>
-
-                    <!-- ปุ่มปิด Modal -->
-                    <button class="pdf-close-btn" onclick="closePdfModal()" title="Close">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="pdf-modal-body">
-                <iframe id="pdfIframe" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
     </div>
 
     <!-- External JavaScript Files -->
