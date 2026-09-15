@@ -1,15 +1,118 @@
 [
   {
-    "id": "sysmex-xn",
-    "name": "Sysmex XN Series",
+    "id": "chemistry",
+    "name": "Chemistry",
     "type": "folder",
     "items": [
       {
-        "id": "xn-3000-manual",
-        "name": "XN-3000 Service Manual.pdf",
-        "type": "file",
-        "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/XN-3000_Service_Manual.pdf"
+        "id": "bm-6010c",
+        "name": "BM-6010c",
+        "type": "folder",
+        "items": [
+          {
+            "id": "bm-6010c-manual",
+            "name": "BM-6010c Service Manual.pdf",
+            "type": "file",
+            "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/Chemistry/BM-6010c/BM-6010c_Service_Manual.pdf"
+          }
+        ]
+      },
+      {
+        "id": "bx-3010",
+        "name": "BX-3010",
+        "type": "folder",
+        "items": [
+          {
+            "id": "bx-3010-manual",
+            "name": "BX-3010 Service Manual.pdf",
+            "type": "file",
+            "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/Chemistry/BX-3010/BX-3010_Service_Manual.pdf"
+          }
+        ]
+      },
+      {
+        "id": "bx-4000",
+        "name": "BX-4000",
+        "type": "folder",
+        "items": [
+          {
+            "id": "bx-4000-manual",
+            "name": "BX-4000 Service Manual.pdf",
+            "type": "file",
+            "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/Chemistry/BX-4000/BX-4000_Service_Manual.pdf"
+          }
+        ]
       }
     ]
+  },
+  {
+    "id": "coagulation",
+    "name": "Coagulation",
+    "type": "folder",
+    "items": [
+      {
+        "id": "coag-model-1",
+        "name": "Model Name 1",
+        "type": "folder",
+        "items": [
+          {
+            "id": "coag-manual-1",
+            "name": "Service_Manual.pdf",
+            "type": "file",
+            "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/Coagulation/Model1/Service_Manual.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cv-cf-ramini-st",
+    "name": "CV / CF / RA-mini / ST",
+    "type": "folder",
+    "items": []
+  },
+  {
+    "id": "flow-cytometry",
+    "name": "Flow Cytometry (Sysmex Partec)",
+    "type": "folder",
+    "items": []
+  },
+  {
+    "id": "hematology",
+    "name": "Hematology",
+    "type": "folder",
+    "items": [
+      {
+        "id": "xn-series",
+        "name": "XN Series",
+        "type": "folder",
+        "items": [
+          {
+            "id": "xn-3000-manual",
+            "name": "XN-3000 Service Manual.pdf",
+            "type": "file",
+            "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/XN-3000_Service_Manual.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "immunology",
+    "name": "Immunology",
+    "type": "folder",
+    "items": []
+  },
+  {
+    "id": "robotic",
+    "name": "Robotic",
+    "type": "folder",
+    "items": []
+  },
+  {
+    "id": "urinalysis",
+    "name": "Urinalysis",
+    "type": "folder",
+    "items": []
   }
 ]
