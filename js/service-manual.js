@@ -73,11 +73,12 @@ function renderControlsHTML(showBack) {
 function findNodeByPath(pathArray) {
     if (!allManualsData || !pathArray || pathArray.length === 0) return null;
     
-    let current = { children: allManualsData };
+    let current = { items: allManualsData };
 
     for (const segment of pathArray) {
-        if (current && current.children) {
-            current = current.children.find(
+        const subItems = current.items || current.children;
+        if (current && subItems) {
+            current = subItems.find(
                 item => item.id === segment || item.name === segment
             );
         } else {
@@ -115,23 +116,27 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
     grid.className = `manual-grid view-${currentViewMode}`;
 
     const currentFolder = isRoot 
-    ? { children: allManualsData }
-    : findNodeByPath(folderPath);
+        ? { items: allManualsData } 
+        : findNodeByPath(folderPath);
 
-    if (!currentFolder || !currentFolder.children) {
+    const itemList = currentFolder ? (currentFolder.items || currentFolder.children) : null;
+
+    if (!currentFolder || !itemList) {
         grid.innerHTML = `<div class="manual-loading">No items found inside.</div>`;
         return;
     }
 
     grid.innerHTML = "";
 
-    const folders = currentFolder.children.filter(item => item.type === 'folder');
-    const files = currentFolder.children.filter(item => item.type === 'file');
+    const folders = itemList.filter(item => item.type === 'folder');
+    const files = itemList.filter(item => item.type === 'file');
 
     if (folders.length === 0 && files.length === 0) {
         grid.innerHTML = `<div class="manual-loading">No folders or PDF documents found inside.</div>`;
         return;
     }
+
+    // ✅ แก้ไขตรงนี้: ต่อ Path จาก folderPath ของโฟลเดอร์ปัจจุบันโดยตรง
     folders.forEach(folder => {
         const card = document.createElement("div");
         card.className = "manual-card";
@@ -141,9 +146,8 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
             <span class="manual-tag">Folder</span>
         `;
 
-        const currentPath = navigationHistory[navigationHistory.length - 1].path;
         const folderIdentifier = folder.id || folder.name;
-        const newPath = [...currentPath, folderIdentifier];
+        const newPath = [...folderPath, folderIdentifier];
         
         card.onclick = () => navigateToFolder(newPath, folder.name, false);
         grid.appendChild(card);
@@ -162,6 +166,7 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
         grid.appendChild(card);
     });
 }
+
 
 function navigateBack() {
     if (navigationHistory.length > 1) {
