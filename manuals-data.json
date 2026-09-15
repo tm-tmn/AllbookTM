@@ -1,0 +1,15 @@
+[
+  {
+    "id": "sysmex-xn",
+    "name": "Sysmex XN Series",
+    "type": "folder",
+    "items": [
+      {
+        "id": "xn-3000-manual",
+        "name": "XN-3000 Service Manual.pdf",
+        "type": "file",
+        "url": "https://pub-ab56e3fcaa6242a4bef23ad730720f6c.r2.dev/XN-3000_Service_Manual.pdf"
+      }
+    ]
+  }
+]
