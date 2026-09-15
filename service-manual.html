@@ -58,31 +58,34 @@
         <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
         <main class="main-content">
-
-            <section class="content">
         
-                <div class="welcome-card" id="welcomeCard">
-                    <div class="welcome-card-header">
-                        <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
-        
-                        <div class="welcome-card-text">
-                            <h2 id="folderTitleHeader">Service Manual</h2>
-                            <p id="folderSubtitle">Select equipment to view manuals and documents.</p>
+                    <section class="content">
+                
+                        <div class="welcome-card" id="welcomeCard">
+                            <div class="welcome-card-header">
+                                <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
+                
+                                <div class="welcome-card-text">
+                                    <!-- ✅ แก้ ID: folderTitleHeader -> manualTitleHeader -->
+                                    <h2 id="manualTitleHeader">Service Manual</h2>
+                                    <!-- ✅ แก้ ID: folderSubtitle -> manualSubtitle -->
+                                    <p id="manualSubtitle">Select equipment to view manuals and documents.</p>
+                                </div>
+                
+                                <!-- ✅ แก้ ID: actionContainer -> manualActionContainer -->
+                                <div id="manualActionContainer"></div>
+                            </div>
                         </div>
-        
-                        <div id="actionContainer"></div>
-                    </div>
-                </div>
-        
-                <!-- Container สำหรับแสดงโฟลเดอร์และไฟล์ Manual -->
-                <div id="equipmentGrid" class="exam-folder-grid">
-                    <div class="exam-loading">Loading manuals...</div>
-                </div>
-        
-            </section>
-        
-        </main>
-
+                
+                        <!-- Container สำหรับแสดงโฟลเดอร์และไฟล์ Manual -->
+                        <!-- ✅ แก้ ID: equipmentGrid -> manualGrid และปรับ class ให้ตรงกับ JS -->
+                        <div id="manualGrid" class="manual-grid">
+                            <div class="manual-loading">Loading manuals...</div>
+                        </div>
+                
+                    </section>
+                
+                </main>
     </div>
 
     <!-- External JavaScript Files -->
