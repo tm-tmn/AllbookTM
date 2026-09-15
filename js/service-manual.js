@@ -70,15 +70,17 @@ function renderControlsHTML(showBack) {
     `;
 }
 
-// ค้นหา Node ใน JSON จาก Path
 function findNodeByPath(pathArray) {
-    if (!allManualsData) return null;
-    let current = allManualsData;
-    
-    for (const folderName of pathArray) {
+    if (!allManualsData || !pathArray || pathArray.length === 0) return null;
+
+    let current = allManualsData.find(
+        item => (item.type === 'folder' || !item.type) && item.name === pathArray[0]
+    );
+
+    for (let i = 1; i < pathArray.length; i++) {
         if (current && current.children) {
             current = current.children.find(
-                item => item.type === 'folder' && item.name === folderName
+                item => item.type === 'folder' && item.name === pathArray[i]
             );
         } else {
             return null;
@@ -87,7 +89,6 @@ function findNodeByPath(pathArray) {
     return current;
 }
 
-// ฟังก์ชันนำทางไปยังโฟลเดอร์ต่างๆ
 function navigateToFolder(folderPath, folderName, isRoot = false) {
     const grid = document.getElementById("manualGrid");
     const titleHeader = document.getElementById("manualTitleHeader");
@@ -115,10 +116,9 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
 
     grid.className = `manual-grid view-${currentViewMode}`;
 
-    // ค้นหาโฟลเดอร์ปัจจุบันจาก Tree Data
     const currentFolder = isRoot 
-        ? allManualsData 
-        : findNodeByPath(folderPath);
+    ? { children: allManualsData }
+    : findNodeByPath(folderPath);
 
     if (!currentFolder || !currentFolder.children) {
         grid.innerHTML = `<div class="manual-loading">No items found inside.</div>`;
@@ -127,7 +127,6 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
 
     grid.innerHTML = "";
 
-    // แยกการแสดงผล Folders และ Files
     const folders = currentFolder.children.filter(item => item.type === 'folder');
     const files = currentFolder.children.filter(item => item.type === 'file');
 
