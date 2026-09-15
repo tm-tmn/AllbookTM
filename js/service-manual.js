@@ -1,11 +1,34 @@
-const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzciz7yky6XqQhksOICETxOBLPMXdAR-Cco3H6QRSqf3QRl26kpI64qTBRJvriFNr-E/exec"; 
-
+let allManualsData = null; // เก็บข้อมูลทั้งหมดจาก manuals-data.json
 let navigationHistory = [];
 let currentViewMode = localStorage.getItem("manualViewMode") || "tiles";
 
-document.addEventListener("DOMContentLoaded", () => {
-    navigateToFolder("", "Service Manual", true);
+document.addEventListener("DOMContentLoaded", async () => {
+    await initManualsData();
 });
+
+// โหลดข้อมูลจาก manuals-data.json มาเตรียมไว้
+async function initManualsData() {
+    const grid = document.getElementById("manualGrid");
+    if (grid) {
+        grid.innerHTML = `<div class="manual-loading">Loading manuals data...</div>`;
+    }
+
+    try {
+        const response = await fetch("./manuals-data.json");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        allManualsData = await response.json();
+        
+        // เมื่อโหลดข้อมูลเสร็จแล้ว ให้เริ่มต้นที่โฟลเดอร์ Root
+        navigateToFolder("", "Service Manual", true);
+    } catch (error) {
+        console.error("Error loading manuals-data.json:", error);
+        if (grid) {
+            grid.innerHTML = `<div class="manual-loading">Failed to load manuals data.</div>`;
+        }
+    }
+}
 
 // ฟังก์ชันเปลี่ยน View Mode ผ่าน Dropdown Select
 function setViewMode(mode) {
@@ -17,14 +40,13 @@ function setViewMode(mode) {
         grid.className = `manual-grid view-${mode}`;
     }
 
-    // ซิงค์ค่าไปที่ Dropdown หากฟังก์ชันนี้ถูกเรียกจากส่วนอื่น
     const select = document.getElementById("viewModeSelect");
     if (select && select.value !== mode) {
         select.value = mode;
     }
 }
 
-// สร้าง HTML Controls ที่เปลี่ยนจาก Button Group เป็น Dropdown Select
+// สร้าง HTML Controls
 function renderControlsHTML(showBack) {
     return `
         <div class="action-controls-wrapper">
@@ -48,82 +70,101 @@ function renderControlsHTML(showBack) {
     `;
 }
 
-async function navigateToFolder(folderId, folderName, isRoot = false) {
+// ค้นหา Node ใน JSON จาก Path
+function findNodeByPath(pathArray) {
+    if (!allManualsData) return null;
+    let current = allManualsData;
+    
+    for (const folderName of pathArray) {
+        if (current && current.children) {
+            current = current.children.find(
+                item => item.type === 'folder' && item.name === folderName
+            );
+        } else {
+            return null;
+        }
+    }
+    return current;
+}
+
+// ฟังก์ชันนำทางไปยังโฟลเดอร์ต่างๆ
+function navigateToFolder(folderPath, folderName, isRoot = false) {
     const grid = document.getElementById("manualGrid");
     const titleHeader = document.getElementById("manualTitleHeader");
     const subtitle = document.getElementById("manualSubtitle");
     const actionContainer = document.getElementById("manualActionContainer");
 
     if (isRoot) {
-        navigationHistory = [{ id: folderId, name: folderName }];
+        navigationHistory = [{ path: [], name: folderName }];
     } else {
-        navigationHistory.push({ id: folderId, name: folderName });
+        navigationHistory.push({ path: folderPath, name: folderName });
     }
 
-    titleHeader.textContent = folderName;
-    subtitle.textContent = isRoot 
-        ? "Select an equipment category to view service manuals & documents." 
-        : `Browsing items in ${folderName}`;
+    if (titleHeader) titleHeader.textContent = folderName;
+    if (subtitle) {
+        subtitle.textContent = isRoot 
+            ? "Select an equipment category to view service manuals & documents." 
+            : `Browsing items in ${folderName}`;
+    }
 
-    actionContainer.innerHTML = renderControlsHTML(navigationHistory.length > 1);
+    if (actionContainer) {
+        actionContainer.innerHTML = renderControlsHTML(navigationHistory.length > 1);
+    }
+
+    if (!grid) return;
 
     grid.className = `manual-grid view-${currentViewMode}`;
-    grid.innerHTML = `<div class="manual-loading">Loading content...</div>`;
 
-    try {
-        let items = { folders: [], files: [] };
+    // ค้นหาโฟลเดอร์ปัจจุบันจาก Tree Data
+    const currentFolder = isRoot 
+        ? allManualsData 
+        : findNodeByPath(folderPath);
 
-        if (isRoot) {
-            const response = await fetch(`${GAS_API_URL}?action=manualFolders`);
-            const folderData = await response.json();
-            items.folders = folderData.map(f => ({ ...f, type: 'folder' }));
-        } else {
-            const response = await fetch(`${GAS_API_URL}?action=manualFiles&folderId=${folderId}`);
-            items = await response.json();
-        }
-
-        grid.innerHTML = "";
-
-        const hasFolders = items.folders && items.folders.length > 0;
-        const hasFiles = items.files && items.files.length > 0;
-
-        if (!hasFolders && !hasFiles) {
-            grid.innerHTML = `<div class="manual-loading">No folders or PDF documents found inside.</div>`;
-            return;
-        }
-
-        if (hasFolders) {
-            items.folders.forEach(folder => {
-                const card = document.createElement("div");
-                card.className = "manual-card";
-                card.innerHTML = `
-                    <div class="manual-icon">📁</div>
-                    <div class="manual-name" title="${folder.name}">${folder.name}</div>
-                    <span class="manual-tag">Folder</span>
-                `;
-                card.onclick = () => navigateToFolder(folder.id, folder.name, false);
-                grid.appendChild(card);
-            });
-        }
-
-        if (hasFiles) {
-            items.files.forEach(file => {
-                const card = document.createElement("div");
-                card.className = "manual-card";
-                card.innerHTML = `
-                    <div class="manual-icon">📄</div>
-                    <div class="manual-name" title="${file.name}">${file.name}</div>
-                    <span class="manual-tag">PDF</span>
-                `;
-                card.onclick = () => openPdfModal(file.id, file.name, file.webViewLink);
-                grid.appendChild(card);
-            });
-        }
-
-    } catch (error) {
-        console.error("Error loading directory content:", error);
-        grid.innerHTML = `<div class="manual-loading">Failed to load content.</div>`;
+    if (!currentFolder || !currentFolder.children) {
+        grid.innerHTML = `<div class="manual-loading">No items found inside.</div>`;
+        return;
     }
+
+    grid.innerHTML = "";
+
+    // แยกการแสดงผล Folders และ Files
+    const folders = currentFolder.children.filter(item => item.type === 'folder');
+    const files = currentFolder.children.filter(item => item.type === 'file');
+
+    if (folders.length === 0 && files.length === 0) {
+        grid.innerHTML = `<div class="manual-loading">No folders or PDF documents found inside.</div>`;
+        return;
+    }
+
+    // สร้าง Folder Cards
+    folders.forEach(folder => {
+        const card = document.createElement("div");
+        card.className = "manual-card";
+        card.innerHTML = `
+            <div class="manual-icon">📁</div>
+            <div class="manual-name" title="${folder.name}">${folder.name}</div>
+            <span class="manual-tag">Folder</span>
+        `;
+        const currentPath = navigationHistory[navigationHistory.length - 1].path;
+        const newPath = [...currentPath, folder.name];
+        
+        card.onclick = () => navigateToFolder(newPath, folder.name, false);
+        grid.appendChild(card);
+    });
+
+    // สร้าง File Cards
+    files.forEach(file => {
+        const card = document.createElement("div");
+        card.className = "manual-card";
+        card.innerHTML = `
+            <div class="manual-icon">📄</div>
+            <div class="manual-name" title="${file.name}">${file.name}</div>
+            <span class="manual-tag">PDF</span>
+        `;
+        // ส่ง Direct URL ของ R2 ไปเปิดใน Modal
+        card.onclick = () => openPdfModal(file.url, file.name);
+        grid.appendChild(card);
+    });
 }
 
 function navigateBack() {
@@ -132,33 +173,40 @@ function navigateBack() {
         const previousFolder = navigationHistory[navigationHistory.length - 1]; 
         const isRoot = navigationHistory.length === 1;
         
-        navigationHistory.pop(); 
-        navigateToFolder(previousFolder.id, previousFolder.name, isRoot);
+        const path = previousFolder.path;
+        const name = previousFolder.name;
+        
+        navigationHistory.pop(); // ลบออกเพื่อให้ navigateToFolder ดันเข้าตามปกติ
+        navigateToFolder(path, name, isRoot);
     }
 }
 
-function openPdfModal(fileId, fileName, webViewLink) {
+// เปิดไฟล์ PDF ด้วย Direct R2 URL
+function openPdfModal(fileUrl, fileName) {
     const modal = document.getElementById("pdfModal");
     const modalTitle = document.getElementById("pdfModalTitle");
     const iframe = document.getElementById("pdfIframe");
     const openBtn = document.getElementById("pdfOpenNewTabBtn");
 
-    modalTitle.textContent = fileName;
+    if (modalTitle) modalTitle.textContent = fileName;
     
     if (openBtn) {
-        openBtn.href = webViewLink || `https://drive.google.com/file/d/${fileId}/view`;
+        openBtn.href = fileUrl;
     }
     
-    iframe.src = "about:blank";
-    iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+    if (iframe) {
+        iframe.src = fileUrl;
+    }
 
-    modal.classList.add("active");
+    if (modal) {
+        modal.classList.add("active");
+    }
 }
 
 function closePdfModal() {
     const modal = document.getElementById("pdfModal");
     const iframe = document.getElementById("pdfIframe");
     
-    modal.classList.remove("active");
-    iframe.src = "";
+    if (modal) modal.classList.remove("active");
+    if (iframe) iframe.src = "";
 }
