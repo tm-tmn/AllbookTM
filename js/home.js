@@ -2,15 +2,14 @@
    HOME DASHBOARD LOGIC (CLOCK, WEATHER & DOWNLOADS)
 ======================================== */
 let currentSheetData = [];
-
-// ใช้ API_URL ตัวเดียวสืบทอดจาก Web App ของ Download Center
 const API_URL = "https://script.google.com/macros/s/AKfycbwULQcYLojlJezIc1_FWXkHeJxIqWa-vrNtyH_zzC9P5YiRlypXJuTldcl_GbGYwLSk/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
     initClock();
     initWeather();
-    fetchWindowsTools();
-    initDownloadCenter();   
+   
+    await initDownloadCenter();
+    await fetchWindowsTools();  
 });
 
 // ----------------------------------------
