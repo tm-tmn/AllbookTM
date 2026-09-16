@@ -1,15 +1,126 @@
 /* ========================================
    HOME DASHBOARD LOGIC (CLOCK & WEATHER)
 ======================================== */
+let currentSheetData = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     initClock();
     initWeather();
-    fetchWindowsTools();   
+    fetchWindowsTools();
+    initDownloadCenter();   
 });
 
-
 const API_URL = "https://script.google.com/macros/s/AKfycbwHTzirucpV93BmjvTRBsG53IQnfTRTN6CZcNEvjSV8vzzzO5cl0jG4ecJdinbNOYqWxg/exec";
+const DL_API_URL = "https://script.google.com/macros/s/AKfycbwULQcYLojlJezIc1_FWXkHeJxIqWa-vrNtyH_zzC9P5YiRlypXJuTldcl_GbGYwLSk/exec";
+
+async function initDownloadCenter() {
+    const categorySelect = document.getElementById("categorySelect");
+    const modelSelect = document.getElementById("modelSelect");
+
+    // 1. ดึงหมวดหมู่ทั้งหมดจาก Sheet Tabs
+    try {
+        const res = await fetch(`${DL_API_URL}?action=getCategories`);
+        const result = await res.json();
+
+        if (result.status === "success" && result.data.length > 0) {
+            categorySelect.innerHTML = "";
+            result.data.forEach(cat => {
+                const opt = document.createElement("option");
+                opt.value = cat;
+                opt.textContent = cat;
+                categorySelect.appendChild(opt);
+            });
+
+            // โหลดข้อมูลหมวดแรกทันที
+            loadCategoryData(categorySelect.value);
+        }
+    } catch (err) {
+        console.error("Error loading categories:", err);
+    }
+
+    // เมื่อเปลี่ยน Product Category
+    categorySelect.addEventListener("change", (e) => {
+        loadCategoryData(e.target.value);
+    });
+
+    // เมื่อเปลี่ยน Model Filter
+    modelSelect.addEventListener("change", (e) => {
+        renderTableData(e.target.value);
+    });
+}
+
+// ดึงข้อมูลตาม Sheet ที่เลือก
+async function loadCategoryData(categoryName) {
+    const tableBody = document.getElementById("downloadCenterBody");
+    const modelSelect = document.getElementById("modelSelect");
+
+    tableBody.innerHTML = `<tr><td colspan="4" class="table-loading">กำลังโหลดข้อมูล ${categoryName}...</td></tr>`;
+    modelSelect.disabled = true;
+
+    try {
+        const res = await fetch(`${DL_API_URL}?action=getDownloadData&category=${encodeURIComponent(categoryName)}`);
+        const result = await res.json();
+
+        if (result.status === "success") {
+            currentSheetData = result.data;
+
+            // สร้างตัวเลือกใน Model Dropdown
+            modelSelect.innerHTML = `<option value="ALL">-- แสดงทุกรุ่น (${categoryName}) --</option>`;
+            currentSheetData.forEach(item => {
+                const opt = document.createElement("option");
+                opt.value = item.model;
+                opt.textContent = item.model;
+                modelSelect.appendChild(opt);
+            });
+
+            modelSelect.disabled = false;
+            renderTableData("ALL");
+        }
+    } catch (err) {
+        console.error("Error loading download data:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" class="table-loading" style="color:#ef4444;">เกิดข้อผิดพลาดในการดึงข้อมูล</td></tr>`;
+    }
+}
+
+// แสดงผลตาราง
+function renderTableData(selectedModel) {
+    const tableBody = document.getElementById("downloadCenterBody");
+    tableBody.innerHTML = "";
+
+    const filteredData = selectedModel === "ALL" 
+        ? currentSheetData 
+        : currentSheetData.filter(item => item.model === selectedModel);
+
+    if (filteredData.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="4" class="table-loading">ไม่พบข้อมูล</td></tr>`;
+        return;
+    }
+
+    filteredData.forEach(item => {
+        const tr = document.createElement("tr");
+
+        const installBtn = formatLinkBtn(item.installLink, "Install");
+        const updateBtn = formatLinkBtn(item.updateLink, "Update");
+
+        tr.innerHTML = `
+            <td class="model-name">${item.model}</td>
+            <td style="text-align: center;">${item.version}</td>
+            <td style="text-align: center;">${installBtn}</td>
+            <td style="text-align: center;">${updateBtn}</td>
+        `;
+        tableBody.appendChild(tr);
+    });
+}
+
+function formatLinkBtn(url, label) {
+    if (!url || url === "-") return `<span class="no-data">-</span>`;
+    let targetUrl = url.trim();
+    if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+        targetUrl = `https://${targetUrl}`;
+    }
+    const btnClass = label.toLowerCase() === "install" ? "install" : "update";
+    return `<a href="${targetUrl}" target="_blank" class="dl-btn ${btnClass}"> Download ${label}</a>`;
+}
 
 async function fetchWindowsTools() {
     const tableBody = document.getElementById("windowsToolsBody");
