@@ -5,7 +5,49 @@
 document.addEventListener("DOMContentLoaded", () => {
     initClock();
     initWeather();
+    fetchWindowsTools();   
 });
+
+
+const API_URL = "https://script.google.com/macros/s/AKfycbwHTzirucpV93BmjvTRBsG53IQnfTRTN6CZcNEvjSV8vzzzO5cl0jG4ecJdinbNOYqWxg/exec";
+
+async function fetchWindowsTools() {
+    const tableBody = document.getElementById("windowsToolsBody");
+
+    try {
+        const response = await fetch(`${API_URL}?action=getWindowsTools`);
+        const result = await response.json();
+
+        if (result.status === "success" && result.data.length > 0) {
+            tableBody.innerHTML = "";
+
+            result.data.forEach(item => {
+                const tr = document.createElement("tr");
+
+                let targetUrl = item.url.trim();
+                if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+                    targetUrl = `https://${targetUrl}`;
+                }
+
+                tr.innerHTML = `
+                    <td class="model-name">${item.name}</td>
+                    <td style="text-align: center;">
+                        <a href="${targetUrl}" target="_blank" class="dl-btn direct">
+                            <span>⬇️</span> Download File
+                        </a>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        } else {
+            tableBody.innerHTML = `<tr><td colspan="2" class="table-loading">ไม่พบข้อมูลไฟล์</td></tr>`;
+        }
+    } catch (error) {
+        console.error("Error loading Windows & Tools:", error);
+        tableBody.innerHTML = `<tr><td colspan="2" class="table-loading" style="color: #ef4444;">เกิดข้อผิดพลาดในการโหลดข้อมูล</td></tr>`;
+    }
+}
+
 
 function initClock() {
     function updateClock() {
