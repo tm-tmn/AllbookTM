@@ -367,3 +367,34 @@ body {
         font-size: 22px;
     }
 }
+
+
+/* CSS พื้นฐานสำหรับรูปภาพโลโก้ */
+.sidebar-logo-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: all 0.3s ease; /* ปรับย่อ-ขยายแบบนุ่มนวล */
+}
+
+/* ควบคุม container ของแบรนด์/โลโก้ */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+    width: 100%;
+}
+
+/* เมื่อ Sidebar หุบตัวลง (ย่อขนาดรูปตาม) */
+.sidebar.collapsed .sidebar-logo-img {
+    max-width: 32px; /* ปรับขนาดความกว้างตามความเหมาะสมของไอคอน */
+    max-height: 32px;
+}
+
+/* หากต้องการซ่อนปุ่ม Toggle หรือจัดวางให้อยู่ตรงกลางตอนหุบ */
+.sidebar.collapsed .sidebar-header {
+    justify-content: center;
+    padding: 10px 0;
+}
