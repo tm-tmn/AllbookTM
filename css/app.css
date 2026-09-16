@@ -369,32 +369,47 @@ body {
 }
 
 
-/* CSS พื้นฐานสำหรับรูปภาพโลโก้ */
-.sidebar-logo-img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-    transition: all 0.3s ease; /* ปรับย่อ-ขยายแบบนุ่มนวล */
+/* ========================================
+   SIDEBAR LOGO RESPONSIVE (AUTO-COLLAPSE FIX)
+======================================== */
+
+/* 1. แก้ไข Header ให้ยืดหดตามขนาด Sidebar ได้จริง */
+.sidebar-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: unset !important; /* ยกเลิก min-width 250px เดิม เพื่อให้พับได้ */
+    width: 100%;
+    overflow: hidden;
 }
 
-/* ควบคุม container ของแบรนด์/โลโก้ */
 .sidebar-brand {
     display: flex;
     align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 10px;
+    text-decoration: none;
+    gap: 12px;
     width: 100%;
 }
 
-/* เมื่อ Sidebar หุบตัวลง (ย่อขนาดรูปตาม) */
-.sidebar.collapsed .sidebar-logo-img {
-    max-width: 32px; /* ปรับขนาดความกว้างตามความเหมาะสมของไอคอน */
-    max-height: 32px;
+/* 2. ขนาดโลโก้ตอน Sidebar พับอยู่ (72px) */
+.sidebar-logo-img {
+    width: 38px;             /* ปรับขนาดให้พอดีกับแถบ 72px */
+    height: 38px;
+    min-width: 38px;         /* ป้องกันภาพโดนบีบเบี้ยว */
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.4));
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* หากต้องการซ่อนปุ่ม Toggle หรือจัดวางให้อยู่ตรงกลางตอนหุบ */
-.sidebar.collapsed .sidebar-header {
-    justify-content: center;
-    padding: 10px 0;
+/* 3. เมื่อเอาเมาส์ไปชี้ขยาย Sidebar ให้โลโก้ขยายขนาดขึ้นนุ่มนวล */
+@media (min-width: 768px) {
+    .sidebar:hover .sidebar-logo-img {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        transform: scale(1.05);
+    }
 }
