@@ -234,3 +234,34 @@
 .quick-card:hover .quick-title {
     color: #38bdf8;
 }
+
+/* Smooth Scroll เมื่อคลิกปุ่มไปยัง Windows & Tools */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ข้อความ Loading และ No Data ในตาราง */
+.table-loading {
+    text-align: center;
+    color: #94a3b8;
+    padding: 20px !important;
+    font-style: italic;
+}
+
+/* ปุ่ม Download สำหรับ Windows & Tools (ตาราง 2 คอลัมน์) */
+.dl-btn.direct {
+    background-color: #2563eb;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dl-btn.direct:hover {
+    background-color: #1d4ed8;
+}
+
+/* ปรับระยะ Margin ของ Section */
+#windowsToolsSection {
+    margin-top: 36px;
+}
