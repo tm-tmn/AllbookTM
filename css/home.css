@@ -1,7 +1,26 @@
 /* ========================================
-   HOME DASHBOARD STYLES
+   HOME DASHBOARD STYLES & LAYOUT
 ======================================== */
 
+html {
+    scroll-behavior: smooth;
+}
+
+/* Layout Centering Wrapper */
+.main-content {
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    max-width: 1200px; /* จำกัดความกว้างไม่ให้ยืดกว้างเกินไป */
+    margin: 0 auto;    /* จัดให้อยู่กึ่งกลางหน้าจอพอดี */
+    width: 100%;
+}
+
+/* Topbar Mobile Only */
 .topbar-mobile-only {
     display: none;
     margin-bottom: 12px;
@@ -11,6 +30,9 @@
     .topbar-mobile-only {
         display: block;
     }
+    .main-content {
+        padding: 16px;
+    }
 }
 
 /* Weather & Clock Widget Card */
@@ -18,7 +40,7 @@
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     border: 1px solid #334155;
     border-radius: 16px;
-    padding: 24px 30px;
+    padding: 20px 28px;
     color: #ffffff;
     margin-bottom: 24px;
     display: flex;
@@ -79,110 +101,6 @@
     gap: 8px;
 }
 
-/* Tools & External Links Grid */
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-}
-
-.tool-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: #e2e8f0;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.tool-card:hover {
-    background: #0f172a;
-    border-color: #38bdf8;
-    color: #38bdf8;
-    transform: translateY(-2px);
-}
-
-/* Download Center Table Section */
-.download-container {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    padding: 20px;
-}
-
-.download-subtitle {
-    font-size: 13px;
-    color: #94a3b8;
-    margin-bottom: 16px;
-}
-
-.download-table-wrapper {
-    overflow-x: auto;
-}
-
-.download-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 14px;
-}
-
-.download-table th, .download-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #334155;
-}
-
-.download-table th {
-    background-color: #0f172a;
-    color: #94a3b8;
-    font-weight: 600;
-}
-
-.download-table td.model-name {
-    font-weight: 600;
-    color: #f8fafc;
-}
-
-.dl-btn {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.dl-btn.install {
-    background-color: #0284c7;
-    color: #ffffff;
-}
-
-.dl-btn.install:hover {
-    background-color: #0369a1;
-}
-
-.dl-btn.update {
-    background-color: #0d9488;
-    color: #ffffff;
-}
-
-.dl-btn.update:hover {
-    background-color: #0f766e;
-}
-
-.no-data {
-    color: #64748b;
-    font-weight: bold;
-    padding-left: 8px;
-}
-
 /* Quick Access Responsive Grid */
 .quick-access-grid {
     display: grid;
@@ -235,37 +153,52 @@
     color: #38bdf8;
 }
 
-/* Smooth Scroll เมื่อคลิกปุ่มไปยัง Windows & Tools */
-html {
-    scroll-behavior: smooth;
+/* Tools & External Links Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
 }
 
-/* ข้อความ Loading และ No Data ในตาราง */
-.table-loading {
-    text-align: center;
-    color: #94a3b8;
-    padding: 20px !important;
-    font-style: italic;
-}
-
-/* ปุ่ม Download สำหรับ Windows & Tools (ตาราง 2 คอลัมน์) */
-.dl-btn.direct {
-    background-color: #2563eb;
-    color: #ffffff;
-    display: inline-flex;
+.tool-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 12px;
+    text-decoration: none;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
-.dl-btn.direct:hover {
-    background-color: #1d4ed8;
+.tool-card:hover {
+    background: #0f172a;
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateY(-2px);
 }
 
-/* ปรับระยะ Margin ของ Section */
-#windowsToolsSection {
-    margin-top: 36px;
+/* Download Center Table Section */
+.download-container {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
 }
 
+.download-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+/* Filter Controls */
 .filter-controls {
     display: flex;
     flex-wrap: wrap;
@@ -310,4 +243,95 @@ html {
 .filter-select:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* Download Table Styles */
+.download-table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+}
+
+.download-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.download-table th, 
+.download-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #334155;
+    vertical-align: middle;
+}
+
+.download-table th {
+    background-color: #0f172a;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.download-table td.model-name {
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+/* Download Buttons */
+.dl-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+    text-align: center;
+}
+
+.dl-btn.install {
+    background-color: #0284c7;
+    color: #ffffff;
+}
+
+.dl-btn.install:hover {
+    background-color: #0369a1;
+}
+
+.dl-btn.update {
+    background-color: #0d9488;
+    color: #ffffff;
+}
+
+.dl-btn.update:hover {
+    background-color: #0f766e;
+}
+
+.dl-btn.direct {
+    background-color: #2563eb;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.dl-btn.direct:hover {
+    background-color: #1d4ed8;
+}
+
+.no-data {
+    color: #64748b;
+    font-weight: bold;
+}
+
+.table-loading {
+    text-align: center;
+    color: #94a3b8;
+    padding: 20px !important;
+    font-style: italic;
+}
+
+/* Target Section Scroll Offset */
+#windowsToolsSection {
+    scroll-margin-top: 24px;
 }
