@@ -81,21 +81,45 @@ body {
 }
 
 /* เมื่อเอาเมาส์ไปชี้ (Hover) ให้ขยายออก */
-.sidebar:hover {
-    width: 250px;
-    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
-}/* ========================================
-   SIDEBAR ELEMENTS ANIMATION
+@media (min-width: 768px) {
+    .sidebar:hover {
+        width: 250px;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* ========================================
+   SIDEBAR ELEMENTS ANIMATION & LOGO
 ======================================== */
 
 .sidebar-header {
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 18px;
+    justify-content: flex-start;
+    padding: 0 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     min-width: 250px; /* ยึดความกว้างข้างในไว้ */
+}
+
+/* ส่วนแสดงโลโก้ใน Sidebar */
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 12px;
+}
+
+.sidebar-logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.4));
+    transition: transform 0.2s ease;
+}
+
+.sidebar-logo-img:hover {
+    transform: scale(1.05);
 }
 
 .logo {
@@ -117,7 +141,7 @@ body {
     transform: translateX(0);
 }
 
-/* ซ่อนปุ่ม Toggle แบบเดิม เพราะใช้ Hover แทนแล้ว */
+/* ซ่อนปุ่ม Toggle แบบเดิม */
 .sidebar-toggle {
     display: none;
 }
@@ -201,31 +225,6 @@ body {
 .logout-button:hover {
     background: rgba(239, 68, 68, 0.15);
     color: #f87171;
-}
-
-/* ========================================
-   RESPONSIVE (DISABLE HOVER ON MOBILE)
-======================================== */
-@media (max-width: 767px) {
-    .sidebar {
-        position: fixed;
-        width: 260px;
-        transform: translateX(-100%);
-    }
-
-    .sidebar:hover {
-        width: 260px;
-    }
-
-    .sidebar.mobile-open {
-        transform: translateX(0);
-    }
-
-    .sidebar .logo,
-    .sidebar .nav-text {
-        opacity: 1;
-        transform: translateX(0);
-    }
 }
 
 /* ========================================
@@ -317,29 +316,8 @@ body {
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (MOBILE)
 ======================================== */
-
-@media (max-width: 1023px) {
-    .sidebar {
-        width: 72px;
-    }
-
-    .sidebar .logo,
-    .sidebar .nav-text {
-        display: none;
-    }
-
-    .sidebar .nav-item,
-    .sidebar .logout-button {
-        justify-content: center;
-    }
-
-    .sidebar-header {
-        justify-content: center;
-        padding: 0;
-    }
-}
 
 @media (max-width: 767px) {
     .sidebar {
@@ -358,7 +336,8 @@ body {
 
     .sidebar .logo,
     .sidebar .nav-text {
-        display: block;
+        opacity: 1;
+        transform: translateX(0);
     }
 
     .sidebar .nav-item,
