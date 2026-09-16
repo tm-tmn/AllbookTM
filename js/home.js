@@ -17,13 +17,18 @@ async function initDownloadCenter() {
     const categorySelect = document.getElementById("categorySelect");
     const modelSelect = document.getElementById("modelSelect");
 
-    // 1. ดึงหมวดหมู่ทั้งหมดจาก Sheet Tabs
     try {
         const res = await fetch(`${DL_API_URL}?action=getCategories`);
         const result = await res.json();
 
         if (result.status === "success" && result.data.length > 0) {
             categorySelect.innerHTML = "";
+
+            const allOpt = document.createElement("option");
+            allOpt.value = "ALL";
+            allOpt.textContent = "All Categories (ทั้งหมด)";
+            categorySelect.appendChild(allOpt);
+
             result.data.forEach(cat => {
                 const opt = document.createElement("option");
                 opt.value = cat;
@@ -31,46 +36,50 @@ async function initDownloadCenter() {
                 categorySelect.appendChild(opt);
             });
 
-            // โหลดข้อมูลหมวดแรกทันที
-            loadCategoryData(categorySelect.value);
+            loadCategoryData("ALL");
         }
     } catch (err) {
         console.error("Error loading categories:", err);
     }
 
-    // เมื่อเปลี่ยน Product Category
     categorySelect.addEventListener("change", (e) => {
         loadCategoryData(e.target.value);
     });
 
-    // เมื่อเปลี่ยน Model Filter
     modelSelect.addEventListener("change", (e) => {
         renderTableData(e.target.value);
     });
 }
 
-// ดึงข้อมูลตาม Sheet ที่เลือก
 async function loadCategoryData(categoryName) {
     const tableBody = document.getElementById("downloadCenterBody");
     const modelSelect = document.getElementById("modelSelect");
 
-    tableBody.innerHTML = `<tr><td colspan="4" class="table-loading">กำลังโหลดข้อมูล ${categoryName}...</td></tr>`;
+    const loadingText = categoryName === "ALL" ? "ข้อมูลทั้งหมด" : categoryName;
+    tableBody.innerHTML = `<tr><td colspan="4" class="table-loading">กำลังโหลดข้อมูล ${loadingText}...</td></tr>`;
     modelSelect.disabled = true;
 
     try {
+
         const res = await fetch(`${DL_API_URL}?action=getDownloadData&category=${encodeURIComponent(categoryName)}`);
         const result = await res.json();
 
         if (result.status === "success") {
             currentSheetData = result.data;
 
-            // สร้างตัวเลือกใน Model Dropdown
-            modelSelect.innerHTML = `<option value="ALL">-- แสดงทุกรุ่น (${categoryName}) --</option>`;
-            currentSheetData.forEach(item => {
-                const opt = document.createElement("option");
-                opt.value = item.model;
-                opt.textContent = item.model;
-                modelSelect.appendChild(opt);
+            const modelLabel = categoryName === "ALL" ? "แสดงทุกรุ่น" : `แสดงทุกรุ่น (${categoryName})`;
+            modelSelect.innerHTML = `<option value="ALL">-- ${modelLabel} --</option>`;
+            
+
+            const uniqueModels = [...new Set(currentSheetData.map(item => item.model))];
+            
+            uniqueModels.forEach(model => {
+                if (model) {
+                    const opt = document.createElement("option");
+                    opt.value = model;
+                    opt.textContent = model;
+                    modelSelect.appendChild(opt);
+                }
             });
 
             modelSelect.disabled = false;
@@ -82,7 +91,7 @@ async function loadCategoryData(categoryName) {
     }
 }
 
-// แสดงผลตาราง
+
 function renderTableData(selectedModel) {
     const tableBody = document.getElementById("downloadCenterBody");
     tableBody.innerHTML = "";
