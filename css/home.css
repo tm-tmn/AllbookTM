@@ -1,12 +1,12 @@
 /* ========================================
-   HOME DASHBOARD STYLES & LAYOUT
+   HOME DASHBOARD STYLES & LAYOUT (FULL WIDTH)
 ======================================== */
 
 html {
     scroll-behavior: smooth;
 }
 
-/* Layout Centering Wrapper */
+/* Layout Full Width Wrapper */
 .main-content {
     width: 100%;
     min-height: 100vh;
@@ -15,9 +15,9 @@ html {
 }
 
 .dashboard-container {
-    max-width: 1200px; /* จำกัดความกว้างไม่ให้ยืดกว้างเกินไป */
-    margin: 0 auto;    /* จัดให้อยู่กึ่งกลางหน้าจอพอดี */
-    width: 100%;
+    width: 100%;      /* ขยายเต็มพื้นที่ 100% */
+    max-width: none;  /* ยกเลิกการจำกัดความกว้าง */
+    margin: 0;
 }
 
 /* Topbar Mobile Only */
@@ -104,7 +104,7 @@ html {
 /* Quick Access Responsive Grid */
 .quick-access-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 16px;
     margin-bottom: 24px;
 }
@@ -190,6 +190,7 @@ html {
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 24px;
+    width: 100%;
 }
 
 .download-subtitle {
@@ -249,6 +250,7 @@ html {
 .download-table-wrapper {
     overflow-x: auto;
     border-radius: 8px;
+    width: 100%;
 }
 
 .download-table {
