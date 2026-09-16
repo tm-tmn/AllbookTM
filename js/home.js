@@ -38,7 +38,10 @@ async function initDownloadCenter() {
                 categorySelect.appendChild(opt);
             });
 
-            loadCategoryData("ALL");
+            const defaultCategory = result.data[0]; 
+            categorySelect.value = defaultCategory;
+  
+            loadCategoryData(defaultCategory);
         }
     } catch (err) {
         console.error("Error loading categories:", err);
