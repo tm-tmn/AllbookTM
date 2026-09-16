@@ -373,7 +373,10 @@ body {
    SIDEBAR LOGO RESPONSIVE (AUTO-COLLAPSE FIX)
 ======================================== */
 
-/* 1. แก้ไข Header ให้ยืดหดตามขนาด Sidebar ได้จริง */
+/* ========================================
+   SIDEBAR LOGO FIXED (EXPAND & COLLAPSE)
+======================================== */
+
 .sidebar-header {
     height: 70px;
     display: flex;
@@ -381,7 +384,6 @@ body {
     justify-content: flex-start;
     padding: 0 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    min-width: unset !important; /* ยกเลิก min-width 250px เดิม เพื่อให้พับได้ */
     width: 100%;
     overflow: hidden;
 }
@@ -390,26 +392,34 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    gap: 12px;
     width: 100%;
+    height: 100%;
 }
 
-/* 2. ขนาดโลโก้ตอน Sidebar พับอยู่ (72px) */
+/* ซ่อนตัวหนังสือเดิม ป้องกันไม่ให้ไปบัง/บีบรูปภาพโลโก้ */
+.sidebar-brand .logo {
+    display: none !important;
+}
+
+/* ขนาดโลโก้ตอน Sidebar พับอยู่ (72px) - แสดงเฉพาะส่วนสัญลักษณ์ไอคอน */
 .sidebar-logo-img {
-    width: 38px;             /* ปรับขนาดให้พอดีกับแถบ 72px */
     height: 38px;
-    min-width: 38px;         /* ป้องกันภาพโดนบีบเบี้ยว */
-    object-fit: contain;
+    width: 38px;
+    min-width: 38px;
+    object-fit: cover;        /* ตัดขอบข้อความข้างหลังรูปออกตอนพับ */
+    object-position: left;    /* ยึดแสดงเฉพาะไอคอนฝั่งซ้ายสุด */
     filter: drop-shadow(0 0 8px rgba(129, 140, 248, 0.4));
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 3. เมื่อเอาเมาส์ไปชี้ขยาย Sidebar ให้โลโก้ขยายขนาดขึ้นนุ่มนวล */
+/* เมื่อขยาย Sidebar (Hover) ให้ภาพขยายความกว้างเพื่อแสดงโลโก้แบบเต็มตัว */
 @media (min-width: 768px) {
     .sidebar:hover .sidebar-logo-img {
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        transform: scale(1.05);
+        width: 160px;          /* ขยายความกว้างให้เห็นโลโก้เต็ม */
+        max-width: 180px;
+        height: auto;
+        max-height: 44px;
+        object-fit: contain;   /* แสดงภาพเต็มไม่มีตัดขอบ */
+        transform: scale(1);
     }
 }
