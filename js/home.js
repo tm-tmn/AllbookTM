@@ -4,10 +4,10 @@
 let currentSheetData = [];
 const API_URL = "https://script.google.com/macros/s/AKfycbwULQcYLojlJezIc1_FWXkHeJxIqWa-vrNtyH_zzC9P5YiRlypXJuTldcl_GbGYwLSk/exec";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     initClock();
     initWeather();
-   
+    
     await initDownloadCenter();
     await fetchWindowsTools();  
 });
