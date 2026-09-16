@@ -3,8 +3,75 @@ let navigationHistory = [];
 let currentViewMode = localStorage.getItem("manualViewMode") || "tiles";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    // 1. ผูก Event Listeners สำหรับ PDF Modal
+    initPdfModalEvents();
+
+    // 2. โหลดข้อมูล Manuals
     await initManualsData();
 });
+
+// ========================================
+// PDF MODAL FUNCTIONS & EVENTS
+// ========================================
+
+// ผูก Event การปิด Modal (ปุ่ม X, คลิกพื้นหลัง, กด ESC)
+function initPdfModalEvents() {
+    const pdfModal = document.getElementById("pdfModal");
+    const closeBtn = document.getElementById("closePdfModal");
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", closePdfModal);
+    }
+
+    if (pdfModal) {
+        pdfModal.addEventListener("click", (e) => {
+            if (e.target === pdfModal) {
+                closePdfModal();
+            }
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closePdfModal();
+        }
+    });
+}
+
+// เปิดไฟล์ PDF
+function openPdfModal(fileUrl, fileName) {
+    const modal = document.getElementById("pdfModal");
+    const modalTitle = document.getElementById("pdfModalTitle");
+    const iframe = document.getElementById("pdfFrame"); // ✅ แก้เป็น pdfFrame ให้ตรงกับ HTML
+    const downloadBtn = document.getElementById("pdfDownloadBtn"); // ✅ แก้เป็น pdfDownloadBtn ให้ตรงกับ HTML
+
+    if (modalTitle) modalTitle.textContent = fileName || "PDF Document";
+    if (downloadBtn) downloadBtn.href = fileUrl;
+    if (iframe) iframe.src = fileUrl;
+
+    if (modal) {
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden"; // ป้องกันสกอร์ลหน้าหลัง
+    }
+}
+
+// ปิดไฟล์ PDF
+function closePdfModal() {
+    const modal = document.getElementById("pdfModal");
+    const iframe = document.getElementById("pdfFrame"); // ✅ แก้เป็น pdfFrame ให้ตรงกับ HTML
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+    if (iframe) {
+        iframe.src = ""; // ล้าง URL เพื่อหยุดโหลดไฟล์
+    }
+    document.body.style.overflow = "";
+}
+
+// ========================================
+// DATA LOADING & NAVIGATION
+// ========================================
 
 // โหลดข้อมูลจาก manuals-data.json มาเตรียมไว้
 async function initManualsData() {
@@ -136,7 +203,6 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
         return;
     }
 
-    // ✅ แก้ไขตรงนี้: ต่อ Path จาก folderPath ของโฟลเดอร์ปัจจุบันโดยตรง
     folders.forEach(folder => {
         const card = document.createElement("div");
         card.className = "manual-card";
@@ -162,11 +228,11 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
             <span class="manual-tag">PDF</span>
         `;
 
+        // ✅ เรียกใช้ openPdfModal โดยส่ง URL และ Name ของไฟล์
         card.onclick = () => openPdfModal(file.url, file.name);
         grid.appendChild(card);
     });
 }
-
 
 function navigateBack() {
     if (navigationHistory.length > 1) {
@@ -180,34 +246,4 @@ function navigateBack() {
         navigationHistory.pop(); // ลบออกเพื่อให้ navigateToFolder ดันเข้าตามปกติ
         navigateToFolder(path, name, isRoot);
     }
-}
-
-// เปิดไฟล์ PDF ด้วย Direct R2 URL
-function openPdfModal(fileUrl, fileName) {
-    const modal = document.getElementById("pdfModal");
-    const modalTitle = document.getElementById("pdfModalTitle");
-    const iframe = document.getElementById("pdfIframe");
-    const openBtn = document.getElementById("pdfOpenNewTabBtn");
-
-    if (modalTitle) modalTitle.textContent = fileName;
-    
-    if (openBtn) {
-        openBtn.href = fileUrl;
-    }
-    
-    if (iframe) {
-        iframe.src = fileUrl;
-    }
-
-    if (modal) {
-        modal.classList.add("active");
-    }
-}
-
-function closePdfModal() {
-    const modal = document.getElementById("pdfModal");
-    const iframe = document.getElementById("pdfIframe");
-    
-    if (modal) modal.classList.remove("active");
-    if (iframe) iframe.src = "";
 }
