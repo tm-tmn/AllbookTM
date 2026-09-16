@@ -81,6 +81,26 @@
         </main>
     </div>
 
+    <!-- PDF Modal Viewer -->
+    <div id="pdfModal" class="pdf-modal">
+        <div class="pdf-modal-container">
+            <div class="pdf-modal-header">
+                <div class="pdf-title-group">
+                    <span class="pdf-badge">PDF</span>
+                    <h3 id="pdfModalTitle">Document Viewer</h3>
+                </div>
+                <div class="pdf-modal-actions">
+                    <a id="pdfDownloadBtn" href="#" target="_blank" download class="pdf-btn">Download</a>
+                    <button id="closePdfModal" class="pdf-close-btn">&times;</button>
+                </div>
+            </div>
+            <div class="pdf-modal-body">
+                <iframe id="pdfFrame" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    
     <!-- External JavaScript Files -->
     <script src="js/app.js"></script>
     <script src="js/service-manual.js"></script>
