@@ -2,29 +2,73 @@
    HOME DASHBOARD STYLES
 ======================================== */
 
-/* Welcome Banner */
-.welcome-card {
+.topbar-mobile-only {
+    display: none;
+    margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+    .topbar-mobile-only {
+        display: block;
+    }
+}
+
+/* Weather & Clock Widget Card */
+.weather-clock-card {
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     border: 1px solid #334155;
     border-radius: 16px;
-    padding: 28px;
+    padding: 24px 30px;
     color: #ffffff;
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.welcome-card h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 8px;
+.clock-time {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #38bdf8;
+    font-family: monospace;
 }
 
-.welcome-card p {
-    color: #94a3b8;
+.clock-date {
     font-size: 14px;
+    color: #94a3b8;
+    margin-top: 4px;
 }
 
-/* Section Headings */
+.weather-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.weather-icon {
+    font-size: 32px;
+}
+
+.weather-temp {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.weather-location {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* Section Titles */
 .section-title {
     font-size: 18px;
     font-weight: 600;
@@ -35,72 +79,7 @@
     gap: 8px;
 }
 
-/* Nav Quick Access Grid */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-.nav-card {
-    background-color: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    padding: 22px;
-    text-decoration: none;
-    color: #f8fafc;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: all 0.25s ease;
-}
-
-.nav-card:hover {
-    transform: translateY(-4px);
-    border-color: #38bdf8;
-    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.15);
-}
-
-.nav-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.nav-card-icon {
-    font-size: 28px;
-    background: rgba(255, 255, 255, 0.05);
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.nav-card-arrow {
-    color: #64748b;
-    font-size: 18px;
-    transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.nav-card:hover .nav-card-arrow {
-    color: #38bdf8;
-    transform: translateX(4px);
-}
-
-.nav-card-title {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.nav-card-desc {
-    font-size: 13px;
-    color: #94a3b8;
-    line-height: 1.5;
-}
-
-/* Quick Tools & External Links Grid */
+/* Tools & External Links Grid */
 .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -108,22 +87,98 @@
 }
 
 .tool-card {
-    background: #0f172a;
-    border: 1px solid #1e293b;
-    border-radius: 10px;
-    padding: 16px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 16px 20px;
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
     color: #e2e8f0;
     font-size: 14px;
-    font-weight: 500;
-    transition: background 0.2s ease, border-color 0.2s ease;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .tool-card:hover {
+    background: #0f172a;
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateY(-2px);
+}
+
+/* Download Center Table Section */
+.download-container {
     background: #1e293b;
-    border-color: #475569;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.download-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+}
+
+.download-table-wrapper {
+    overflow-x: auto;
+}
+
+.download-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.download-table th, .download-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #334155;
+}
+
+.download-table th {
+    background-color: #0f172a;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.download-table td.model-name {
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.dl-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.dl-btn.install {
+    background-color: #0284c7;
     color: #ffffff;
+}
+
+.dl-btn.install:hover {
+    background-color: #0369a1;
+}
+
+.dl-btn.update {
+    background-color: #0d9488;
+    color: #ffffff;
+}
+
+.dl-btn.update:hover {
+    background-color: #0f766e;
+}
+
+.no-data {
+    color: #64748b;
+    font-weight: bold;
+    padding-left: 8px;
 }
