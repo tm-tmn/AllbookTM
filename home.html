@@ -135,24 +135,42 @@
                     </a>
                 </div>
 
-                <!-- Section: Download Center (Firmware & Software) -->
+               <!-- Section: Download Center -->
                 <div class="section-title">📦 Download Center</div>
                 <div class="download-container">
                     <p class="download-subtitle">Firmware, Software Installers & Updates for Clinical Instruments</p>
-                    
+                
+                    <!-- Dropdown Control Box -->
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label for="categorySelect">Product Category:</label>
+                            <select id="categorySelect" class="filter-select">
+                                <option value="">-- กำลังโหลดหมวดหมู่ --</option>
+                            </select>
+                        </div>
+                
+                        <div class="filter-group">
+                            <label for="modelSelect">Equipment Model:</label>
+                            <select id="modelSelect" class="filter-select" disabled>
+                                <option value="ALL">-- แสดงทั้งหมด --</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <!-- Table Display -->
                     <div class="download-table-wrapper">
                         <table class="download-table">
                             <thead>
                                 <tr>
-                                    <th>Equipment Model</th>
-                                    <th>Install Version</th>
-                                    <th>Update Version</th>
+                                    <th style="width: 35%;">Equipment Model</th>
+                                    <th style="width: 15%;">Version</th>
+                                    <th style="width: 25%;">Install</th>
+                                    <th style="width: 25%;">Update</th>
                                 </tr>
                             </thead>
-                            <!-- ภาชนะรอรับข้อมูลจาก Google Sheets (Download Center) -->
                             <tbody id="downloadCenterBody">
                                 <tr>
-                                    <td colspan="3" class="table-loading">กำลังโหลดข้อมูล Download Center...</td>
+                                    <td colspan="4" class="table-loading">กำลังโหลดข้อมูล...</td>
                                 </tr>
                             </tbody>
                         </table>
