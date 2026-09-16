@@ -15,15 +15,13 @@
     <div class="app">
 
         <aside id="sidebar" class="sidebar">
-            <div class="sidebar-brand">
-                <a href="home.html" class="brand-link">
+            <div class="sidebar-header">
+                <a href="home.html" class="sidebar-brand">
                     <img src="assets/allbook-logo.png" alt="ALLBOOK TM" class="sidebar-logo-img">
                 </a>
-            </div>
                 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle navigation">☰</button>
             </div>
 
-            <!-- Navigation -->
             <nav class="navigation">
                 <a href="home.html" class="nav-item active">
                     <span class="nav-icon">🏠</span>
@@ -43,7 +41,6 @@
                 </a>
             </nav>
 
-            <!-- Sidebar Footer -->
             <div class="sidebar-footer">
                 <button id="logoutButton" class="logout-button">
                     <span class="nav-icon">⇥</span>
@@ -52,22 +49,17 @@
             </div>
         </aside>
 
-        <!-- Mobile Overlay -->
         <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-        <!-- Main Content Area -->
         <main class="main-content">
             <section class="content">
 
-                <!-- Dashboard Centered Container (ควบคุมขนาดกึ่งกลาง) -->
                 <div class="dashboard-container">
 
-                    <!-- Mobile Menu Button Area -->
                     <div class="topbar-mobile-only">
                         <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">☰</button>
                     </div>
 
-                    <!-- Clock & Weather Banner Widget -->
                     <div class="weather-clock-card">
                         <div class="clock-section">
                             <div id="digitalClock" class="clock-time">00:00:00</div>
@@ -82,7 +74,6 @@
                         </div>
                     </div>
 
-                    <!-- Section: Quick Access -->
                     <div class="section-title">📌 Quick Access</div>
                     <div class="quick-access-grid">
                         <a href="https://sysmexapcrmprd.crm5.dynamics.com/" target="_blank" class="quick-card">
@@ -115,7 +106,6 @@
                         </a>
                     </div>
 
-                    <!-- Section: Tools & External Links -->
                     <div class="section-title">🛠 Tools & External Links</div>
                     <div class="tools-grid">
                         <a href="#windowsToolsSection" class="tool-card">
@@ -129,12 +119,10 @@
                         </a>
                     </div>
 
-                    <!-- Section: Download Center -->
                     <div class="section-title">📦 Download Center</div>
                     <div class="download-container">
                         <p class="download-subtitle">Firmware, Software Installers & Updates for Clinical Instruments</p>
 
-                        <!-- Dropdown Control Box -->
                         <div class="filter-controls">
                             <div class="filter-group">
                                 <label for="categorySelect">Product Category:</label>
@@ -151,7 +139,6 @@
                             </div>
                         </div>
 
-                        <!-- Table Display -->
                         <div class="download-table-wrapper">
                             <table class="download-table">
                                 <thead>
@@ -171,7 +158,6 @@
                         </div>
                     </div>
 
-                    <!-- Section: Windows & Tools -->
                     <div class="section-title" id="windowsToolsSection">🖥 Windows & Tools</div>
                     <div class="download-container">
                         <p class="download-subtitle">Windows OS Images, ISOs, Utility Software & Diagnostic Tools</p>
@@ -193,14 +179,13 @@
                         </div>
                     </div>
 
-                </div> <!-- End .dashboard-container -->
+                </div>
 
             </section>
         </main>
 
     </div>
 
-    <!-- Scripts -->
     <script src="js/app.js"></script>
     <script src="js/home.js"></script>
 
