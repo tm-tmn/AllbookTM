@@ -135,3 +135,12 @@ loginModal.addEventListener("click", (event) => {
     }
 
 });
+
+// =========================
+// Close Modal on ESC Key Press
+// =========================
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && loginModal.classList.contains("active")) {
+        closeLogin();
+    }
+});
