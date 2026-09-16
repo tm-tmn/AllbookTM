@@ -12,20 +12,18 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon.png">
 </head>
-<body>
+    <body>
 
     <div class="app">
 
         <aside id="sidebar" class="sidebar">
-            <div class="sidebar-brand">
-                <a href="home.html" class="brand-link">
+            <div class="sidebar-header">
+                <a href="home.html" class="sidebar-brand">
                     <img src="assets/allbook-logo.png" alt="ALLBOOK TM" class="sidebar-logo-img">
                 </a>
-            </div>
                 <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle navigation">☰</button>
             </div>
 
-            <!-- Navigation -->
             <nav class="navigation">
                 <a href="home.html" class="nav-item active">
                     <span class="nav-icon">🏠</span>
@@ -45,7 +43,6 @@
                 </a>
             </nav>
 
-            <!-- Sidebar Footer -->
             <div class="sidebar-footer">
                 <button id="logoutButton" class="logout-button">
                     <span class="nav-icon">⇥</span>
@@ -53,7 +50,7 @@
                 </button>
             </div>
         </aside>
-
+        
         <div
             id="sidebarOverlay"
             class="sidebar-overlay"
@@ -61,9 +58,7 @@
 
 
         <main class="main-content">
-
             <header class="topbar">
-
                 <button
                     id="mobileMenuButton"
                     class="mobile-menu-button"
