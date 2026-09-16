@@ -18,14 +18,9 @@
 
         <!-- Sidebar -->
         <aside id="sidebar" class="sidebar">
-
             <div class="sidebar-header">
-                <div class="logo">
-                    AllbookTM
-                </div>
-                <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle navigation">
-                    ☰
-                </button>
+                <div class="logo">AllbookTM</div>
+                <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle navigation">☰</button>
             </div>
 
             <!-- Navigation -->
@@ -34,17 +29,14 @@
                     <span class="nav-icon">🏠</span>
                     <span class="nav-text">Home</span>
                 </a>
-
                 <a href="service-manual.html" class="nav-item">
                     <span class="nav-icon">📖</span>
                     <span class="nav-text">Service Manual</span>
                 </a>
-
                 <a href="troubleshooting.html" class="nav-item">
                     <span class="nav-icon">🔧</span>
                     <span class="nav-text">Troubleshooting</span>
                 </a>
-
                 <a href="exam.html" class="nav-item">
                     <span class="nav-icon">📝</span>
                     <span class="nav-text">Exam</span>
@@ -58,150 +50,148 @@
                     <span class="nav-text">Logout</span>
                 </button>
             </div>
-
         </aside>
 
         <!-- Mobile Overlay -->
         <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-        <!-- Main Content -->
+        <!-- Main Content Area -->
         <main class="main-content">
+            <section class="content">
 
-<section class="content">
+                <!-- Dashboard Centered Container (ควบคุมขนาดกึ่งกลาง) -->
+                <div class="dashboard-container">
 
-                <!-- Mobile Menu Button Area -->
-                <div class="topbar-mobile-only">
-                    <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">
-                        ☰
-                    </button>
-                </div>
-
-                <!-- Clock & Weather Banner Widget -->
-                <div class="weather-clock-card">
-                    <div class="clock-section">
-                        <div id="digitalClock" class="clock-time">00:00:00</div>
-                        <div id="digitalDate" class="clock-date">Loading date...</div>
+                    <!-- Mobile Menu Button Area -->
+                    <div class="topbar-mobile-only">
+                        <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">☰</button>
                     </div>
-                    <div class="weather-section" id="weatherWidget">
-                        <div class="weather-icon" id="weatherIcon">🌤️</div>
-                        <div class="weather-info">
-                            <div class="weather-temp" id="weatherTemp">--°C</div>
-                            <div class="weather-location" id="weatherLocation">Detecting location...</div>
+
+                    <!-- Clock & Weather Banner Widget -->
+                    <div class="weather-clock-card">
+                        <div class="clock-section">
+                            <div id="digitalClock" class="clock-time">00:00:00</div>
+                            <div id="digitalDate" class="clock-date">Loading date...</div>
+                        </div>
+                        <div class="weather-section" id="weatherWidget">
+                            <div class="weather-icon" id="weatherIcon">🌤️</div>
+                            <div class="weather-info">
+                                <div class="weather-temp" id="weatherTemp">--°C</div>
+                                <div class="weather-location" id="weatherLocation">Detecting location...</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Section: Quick Access -->
-                <div class="section-title">⚡ Quick Access</div>
-                <div class="quick-access-grid">
-                    <a href="#" target="_blank" class="quick-card">
-                        <div class="quick-icon">📊</div>
-                        <span class="quick-title">CRM</span>
-                    </a>
-                    <a href="#" target="_blank" class="quick-card">
-                        <div class="quick-icon">📚</div>
-                        <span class="quick-title">Knowledge Center</span>
-                    </a>
-                    <a href="#" target="_blank" class="quick-card">
-                        <div class="quick-icon">🎓</div>
-                        <span class="quick-title">Elearning</span>
-                    </a>
-                    <a href="#" target="_blank" class="quick-card">
-                        <div class="quick-icon">🧪</div>
-                        <span class="quick-title">Caresphere™ XQC</span>
-                    </a>
-                    <a href="#" target="_blank" class="quick-card">
-                        <div class="quick-icon">💵</div>
-                        <span class="quick-title">Salary</span>
-                    </a>
-                    <a href="#" target="_blank" class="quick-card">
-                        <div class="quick-icon">📅</div>
-                        <span class="quick-title">Leave Request</span>
-                    </a>
-                </div>
+                    <!-- Section: Quick Access -->
+                    <div class="section-title">⚡ Quick Access</div>
+                    <div class="quick-access-grid">
+                        <a href="#" target="_blank" class="quick-card">
+                            <div class="quick-icon">📊</div>
+                            <span class="quick-title">CRM</span>
+                        </a>
+                        <a href="#" target="_blank" class="quick-card">
+                            <div class="quick-icon">📚</div>
+                            <span class="quick-title">Knowledge Center</span>
+                        </a>
+                        <a href="#" target="_blank" class="quick-card">
+                            <div class="quick-icon">🎓</div>
+                            <span class="quick-title">Elearning</span>
+                        </a>
+                        <a href="#" target="_blank" class="quick-card">
+                            <div class="quick-icon">🧪</div>
+                            <span class="quick-title">Caresphere™ XQC</span>
+                        </a>
+                        <a href="#" target="_blank" class="quick-card">
+                            <div class="quick-icon">💵</div>
+                            <span class="quick-title">Salary</span>
+                        </a>
+                        <a href="#" target="_blank" class="quick-card">
+                            <div class="quick-icon">📅</div>
+                            <span class="quick-title">Leave Request</span>
+                        </a>
+                    </div>
 
-                <!-- Section: Tools & External Links -->
-                <div class="section-title">🛠 Tools & External Links</div>
-                <div class="tools-grid">
-                    <!-- ปุ่มนี้ถูกตั้งค่าให้กดแล้ว Smooth Scroll วิ่งลงไปที่ส่วน #windowsToolsSection -->
-                    <a href="#windowsToolsSection" class="tool-card">
-                        <span>🖥</span> Windows & Tools
-                    </a>
-                    <a href="https://drive.google.com" target="_blank" class="tool-card">
-                        <span>☁️</span> STH Sharedrive
-                    </a>
-                    <a href="#" target="_blank" class="tool-card">
-                        <span>📦</span> Spare Parts Request
-                    </a>
-                </div>
+                    <!-- Section: Tools & External Links -->
+                    <div class="section-title">🛠 Tools & External Links</div>
+                    <div class="tools-grid">
+                        <a href="#windowsToolsSection" class="tool-card">
+                            <span>🖥</span> Windows & Tools
+                        </a>
+                        <a href="https://drive.google.com" target="_blank" class="tool-card">
+                            <span>☁️</span> STH Sharedrive
+                        </a>
+                        <a href="#" target="_blank" class="tool-card">
+                            <span>📦</span> Spare Parts Request
+                        </a>
+                    </div>
 
-               <!-- Section: Download Center -->
-                <div class="section-title">📦 Download Center</div>
-                <div class="download-container">
-                    <p class="download-subtitle">Firmware, Software Installers & Updates for Clinical Instruments</p>
-                
-                    <!-- Dropdown Control Box -->
-                    <div class="filter-controls">
-                        <div class="filter-group">
-                            <label for="categorySelect">Product Category:</label>
-                            <select id="categorySelect" class="filter-select">
-                                <option value="">-- กำลังโหลดหมวดหมู่ --</option>
-                            </select>
+                    <!-- Section: Download Center -->
+                    <div class="section-title">📦 Download Center</div>
+                    <div class="download-container">
+                        <p class="download-subtitle">Firmware, Software Installers & Updates for Clinical Instruments</p>
+
+                        <!-- Dropdown Control Box -->
+                        <div class="filter-controls">
+                            <div class="filter-group">
+                                <label for="categorySelect">Product Category:</label>
+                                <select id="categorySelect" class="filter-select">
+                                    <option value="">-- กำลังโหลดหมวดหมู่ --</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="modelSelect">Equipment Model:</label>
+                                <select id="modelSelect" class="filter-select" disabled>
+                                    <option value="ALL">-- แสดงทั้งหมด --</option>
+                                </select>
+                            </div>
                         </div>
-                
-                        <div class="filter-group">
-                            <label for="modelSelect">Equipment Model:</label>
-                            <select id="modelSelect" class="filter-select" disabled>
-                                <option value="ALL">-- แสดงทั้งหมด --</option>
-                            </select>
+
+                        <!-- Table Display -->
+                        <div class="download-table-wrapper">
+                            <table class="download-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40%;">Equipment Model</th>
+                                        <th style="width: 15%; text-align: center;">Version</th>
+                                        <th style="width: 22.5%; text-align: center;">Install</th>
+                                        <th style="width: 22.5%; text-align: center;">Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="downloadCenterBody">
+                                    <tr>
+                                        <td colspan="4" class="table-loading">กำลังโหลดข้อมูล...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                
-                    <!-- Table Display -->
-                    <div class="download-table-wrapper">
-                        <table class="download-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 35%;">Equipment Model</th>
-                                    <th style="width: 15%;">Version</th>
-                                    <th style="width: 25%;">Install</th>
-                                    <th style="width: 25%;">Update</th>
-                                </tr>
-                            </thead>
-                            <tbody id="downloadCenterBody">
-                                <tr>
-                                    <td colspan="4" class="table-loading">กำลังโหลดข้อมูล...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-                <!-- Section: Windows & Tools (เพิ่มต่อท้ายตามที่ต้องการ) -->
-                <div class="section-title" id="windowsToolsSection">🖥 Windows & Tools</div>
-                <div class="download-container">
-                    <p class="download-subtitle">Windows OS Images, ISOs, Utility Software & Diagnostic Tools</p>
-                    
-                    <div class="download-table-wrapper">
-                        <table class="download-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 60%;">Tool / File Name</th>
-                                    <th style="width: 40%; text-align: center;">Download Link</th>
-                                </tr>
-                            </thead>
-                            <!-- ภาชนะรอรับข้อมูลจาก Google Sheets (Windows&Tools) 2 คอลัมน์ -->
-                            <tbody id="windowsToolsBody">
-                                <tr>
-                                    <td colspan="2" class="table-loading">กำลังโหลดข้อมูล Windows & Tools...</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- Section: Windows & Tools -->
+                    <div class="section-title" id="windowsToolsSection">🖥 Windows & Tools</div>
+                    <div class="download-container">
+                        <p class="download-subtitle">Windows OS Images, ISOs, Utility Software & Diagnostic Tools</p>
+
+                        <div class="download-table-wrapper">
+                            <table class="download-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 70%;">Tool / File Name</th>
+                                        <th style="width: 30%; text-align: center;">Download Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="windowsToolsBody">
+                                    <tr>
+                                        <td colspan="2" class="table-loading">กำลังโหลดข้อมูล Windows & Tools...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+
+                </div> <!-- End .dashboard-container -->
 
             </section>
-            
         </main>
 
     </div>
