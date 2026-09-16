@@ -2,20 +2,15 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Website - Home</title>
 
+    <!-- Global App Styles -->
     <link rel="stylesheet" href="css/app.css">
-
+    <!-- Home Page Specific Styles -->
+    <link rel="stylesheet" href="css/home.css">
 </head>
-
 
 <body>
 
@@ -25,153 +20,113 @@
         <aside id="sidebar" class="sidebar">
 
             <div class="sidebar-header">
-
                 <div class="logo">
                     AllbookTM
                 </div>
-
-                <button
-                    id="sidebarToggle"
-                    class="sidebar-toggle"
-                    aria-label="Toggle navigation"
-                >
+                <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle navigation">
                     ☰
                 </button>
-
             </div>
-
 
             <!-- Navigation -->
             <nav class="navigation">
-
-                <a
-                    href="home.html"
-                    class="nav-item active"
-                >
-
-                    <span class="nav-icon">
-                        🏠
-                    </span>
-
-                    <span class="nav-text">
-                        Home
-                    </span>
-
+                <a href="home.html" class="nav-item active">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
                 </a>
 
-
-                <a
-                    href="service-manual.html"
-                    class="nav-item"
-                >
-
-                    <span class="nav-icon">
-                        📖
-                    </span>
-
-                    <span class="nav-text">
-                        Service Manual
-                    </span>
-
+                <a href="service-manual.html" class="nav-item">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Service Manual</span>
                 </a>
 
-
-                <a
-                    href="troubleshooting.html"
-                    class="nav-item"
-                >
-
-                    <span class="nav-icon">
-                        🔧
-                    </span>
-
-                    <span class="nav-text">
-                        Troubleshooting
-                    </span>
-
+                <a href="troubleshooting.html" class="nav-item">
+                    <span class="nav-icon">🔧</span>
+                    <span class="nav-text">Troubleshooting</span>
                 </a>
 
-
-                <a
-                    href="exam.html"
-                    class="nav-item"
-                >
-
-                    <span class="nav-icon">
-                        📝
-                    </span>
-
-                    <span class="nav-text">
-                        Exam
-                    </span>
-
+                <a href="exam.html" class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Exam</span>
                 </a>
-
             </nav>
-
 
             <!-- Sidebar Footer -->
             <div class="sidebar-footer">
-
-                <button
-                    id="logoutButton"
-                    class="logout-button"
-                >
-
-                    <span class="nav-icon">
-                        ⇥
-                    </span>
-
-                    <span class="nav-text">
-                        Logout
-                    </span>
-
+                <button id="logoutButton" class="logout-button">
+                    <span class="nav-icon">⇥</span>
+                    <span class="nav-text">Logout</span>
                 </button>
-
             </div>
 
         </aside>
 
-
         <!-- Mobile Overlay -->
-        <div
-            id="sidebarOverlay"
-            class="sidebar-overlay"
-        ></div>
-
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
         <!-- Main Content -->
         <main class="main-content">
 
             <header class="topbar">
-
-                <button
-                    id="mobileMenuButton"
-                    class="mobile-menu-button"
-                    aria-label="Open navigation"
-                >
+                <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">
                     ☰
                 </button>
-
-                <h1>
-                    Home
-                </h1>
-
+                <h1>Home</h1>
             </header>
-
 
             <section class="content">
 
+                <!-- Welcome Banner -->
                 <div class="welcome-card">
+                    <h2 id="welcomeGreeting">Welcome to AllbookTM Dashboard 👋</h2>
+                    <p>ศูนย์รวมคู่มือบริการ แนวทางการแก้ไขปัญหา และคลังข้อมูลสำหรับทีมงาน</p>
+                </div>
 
-                    <h2>
-                        Welcome to Team Website
-                    </h2>
+                <!-- Main Modules Quick Access -->
+                <div class="section-title">📌 Quick Access</div>
+                <div class="dashboard-grid">
 
-                    <p>
-                        Internal website for Team.
-                    </p>
+                    <a href="service-manual.html" class="nav-card">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon">📖</div>
+                            <span class="nav-card-arrow">➔</span>
+                        </div>
+                        <div class="nav-card-title">Service Manual</div>
+                        <div class="nav-card-desc">คู่มือการซ่อม บำรุงรักษา และ Diagram แยกตามหมวดหมู่อุปกรณ์</div>
+                    </a>
 
+                    <a href="troubleshooting.html" class="nav-card">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon">🔧</div>
+                            <span class="nav-card-arrow">➔</span>
+                        </div>
+                        <div class="nav-card-title">Troubleshooting</div>
+                        <div class="nav-card-desc">ค้นหาวิธีแก้ไขปัญหาตาม Error Code และอาการเสียหน้างาน</div>
+                    </a>
+
+                    <a href="exam.html" class="nav-card">
+                        <div class="nav-card-header">
+                            <div class="nav-card-icon">📝</div>
+                            <span class="nav-card-arrow">➔</span>
+                        </div>
+                        <div class="nav-card-title">Exam Answer Sheet</div>
+                        <div class="nav-card-desc">คลังเฉลยแบบทดสอบและเอกสารประเมินทักษะทางเทคนิค</div>
+                    </a>
+
+                </div>
+
+                <!-- Useful External Tools & Links -->
+                <div class="section-title">🛠 Tools & External Links</div>
+                <div class="tools-grid">
+                    <a href="#" target="_blank" class="tool-card">
+                        <span>🖥</span> Windows OS Field Record
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="tool-card">
+                        <span>☁️</span> Google Drive Central
+                    </a>
+                    <a href="#" target="_blank" class="tool-card">
+                        <span>📦</span> Spare Parts Request
+                    </a>
                 </div>
 
             </section>
@@ -180,8 +135,9 @@
 
     </div>
 
-
+    <!-- Scripts -->
     <script src="js/app.js"></script>
+    <script src="js/home.js"></script>
 
 </body>
 
