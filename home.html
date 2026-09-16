@@ -67,9 +67,9 @@
         <!-- Main Content -->
         <main class="main-content">
 
-            <section class="content">
+<section class="content">
 
-<!-- Mobile Menu Button Area -->
+                <!-- Mobile Menu Button Area -->
                 <div class="topbar-mobile-only">
                     <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">
                         ☰
@@ -123,11 +123,12 @@
                 <!-- Section: Tools & External Links -->
                 <div class="section-title">🛠 Tools & External Links</div>
                 <div class="tools-grid">
-                    <a href="#" target="_blank" class="tool-card">
+                    <!-- ปุ่มนี้ถูกตั้งค่าให้กดแล้ว Smooth Scroll วิ่งลงไปที่ส่วน #windowsToolsSection -->
+                    <a href="#windowsToolsSection" class="tool-card">
                         <span>🖥</span> Windows & Tools
                     </a>
                     <a href="https://drive.google.com" target="_blank" class="tool-card">
-                        <span>☁️</span> STH Sharepoint
+                        <span>☁️</span> Google Drive Central
                     </a>
                     <a href="#" target="_blank" class="tool-card">
                         <span>📦</span> Spare Parts Request
@@ -139,7 +140,7 @@
                 <div class="download-container">
                     <p class="download-subtitle">Firmware, Software Installers & Updates for Clinical Instruments</p>
                     
-                    <div id="downloadTableList" class="download-table-wrapper">
+                    <div class="download-table-wrapper">
                         <table class="download-table">
                             <thead>
                                 <tr>
@@ -148,16 +149,33 @@
                                     <th>Update Version</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <!-- ภาชนะรอรับข้อมูลจาก Google Sheets (Download Center) -->
+                            <tbody id="downloadCenterBody">
                                 <tr>
-                                    <td class="model-name">Sysmex XN-Series</td>
-                                    <td><a href="#" class="dl-btn install">Download Install (v2.1)</a></td>
-                                    <td><a href="#" class="dl-btn update">Download Update (v2.1.4)</a></td>
+                                    <td colspan="3" class="table-loading">กำลังโหลดข้อมูล Download Center...</td>
                                 </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section: Windows & Tools (เพิ่มต่อท้ายตามที่ต้องการ) -->
+                <div class="section-title" id="windowsToolsSection">🖥 Windows & Tools</div>
+                <div class="download-container">
+                    <p class="download-subtitle">Windows OS Images, ISOs, Utility Software & Diagnostic Tools</p>
+                    
+                    <div class="download-table-wrapper">
+                        <table class="download-table">
+                            <thead>
                                 <tr>
-                                    <td class="model-name">Sysmex UN-Series</td>
-                                    <td><a href="#" class="dl-btn install">Download Install (v1.0)</a></td>
-                                    <td><span class="no-data">-</span></td>
+                                    <th style="width: 60%;">Tool / File Name</th>
+                                    <th style="width: 40%; text-align: center;">Download Link</th>
+                                </tr>
+                            </thead>
+                            <!-- ภาชนะรอรับข้อมูลจาก Google Sheets (Windows&Tools) 2 คอลัมน์ -->
+                            <tbody id="windowsToolsBody">
+                                <tr>
+                                    <td colspan="2" class="table-loading">กำลังโหลดข้อมูล Windows & Tools...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -165,7 +183,7 @@
                 </div>
 
             </section>
-
+            
         </main>
 
     </div>
