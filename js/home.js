@@ -135,17 +135,28 @@ async function fetchWindowsTools() {
     const tableBody = document.getElementById("windowsToolsBody");
 
     try {
-        const response = await fetch(`${API_URL}?action=getWindowsTools`);
+        // เพิ่ม redirect: "follow" และ timestamp เพื่อป้องกัน Cache ค้าง
+        const response = await fetch(`${API_URL}?action=getWindowsTools&_t=${Date.now()}`, {
+            method: "GET",
+            redirect: "follow"
+        });
+
+        // ตรวจสอบว่า Response กลับมาเป็น JSON หรือไม่
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Google Apps Script ส่งค่ากลับมาไม่ใช่ JSON (คาดว่าติดสิทธิ์ Access หรือ 404)");
+        }
+
         const result = await response.json();
 
-        if (result.status === "success" && result.data.length > 0) {
+        if (result.status === "success" && result.data && result.data.length > 0) {
             tableBody.innerHTML = "";
 
             result.data.forEach(item => {
                 const tr = document.createElement("tr");
 
-                let targetUrl = item.url.trim();
-                if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+                let targetUrl = (item.url || "").trim();
+                if (targetUrl && !targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
                     targetUrl = `https://${targetUrl}`;
                 }
 
@@ -164,10 +175,9 @@ async function fetchWindowsTools() {
         }
     } catch (error) {
         console.error("Error loading Windows & Tools:", error);
-        tableBody.innerHTML = `<tr><td colspan="2" class="table-loading" style="color: #ef4444;">เกิดข้อผิดพลาดในการโหลดข้อมูล</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="2" class="table-loading" style="color: #ef4444;">เกิดข้อผิดพลาดในการโหลดข้อมูล (${error.message})</td></tr>`;
     }
 }
-
 
 function initClock() {
     function updateClock() {
