@@ -9,14 +9,14 @@
 }
 
 body {
-    background-color: #0b0f17;
+    background-color: #070913;
     color: #f8fafc;
     min-height: 100vh;
     overflow: hidden;
 }
 
 /* ========================================
-   MAIN PAGE & AMBIENT GLOW
+   BACKGROUND & GRID PATTERN
 ======================================== */
 .login-page {
     position: relative;
@@ -25,138 +25,177 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #090d16;
+    background: #070913;
     overflow: hidden;
 }
 
-/* แสงฟุ้งพื้นหลังสไตล์ Neon Glow */
+/* ลายตาราง Grid พื้นหลัง */
+.grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+}
+
+/* แสงฟุ้ง Ambient Glow */
 .ambient-glow {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.45;
+    filter: blur(100px);
+    opacity: 0.35;
     pointer-events: none;
 }
 
 .glow-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
-    top: -10%;
-    left: 20%;
-    animation: float 12s infinite alternate ease-in-out;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, #818cf8 0%, rgba(129, 140, 248, 0) 70%);
+    top: 20%;
+    left: 25%;
 }
 
 .glow-2 {
     width: 450px;
     height: 450px;
-    background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
-    bottom: -10%;
-    right: 20%;
-    animation: float 15s infinite alternate-reverse ease-in-out;
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(40px, 50px) scale(1.1); }
-}
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 0%, #090d16 90%);
-    pointer-events: none;
+    background: radial-gradient(circle, #e879f9 0%, rgba(232, 121, 249, 0) 70%);
+    bottom: 20%;
+    right: 25%;
 }
 
 /* ========================================
-   WELCOME BOX (GLASSMORPHISM - ALLBOOKTM)
+   WELCOME BOX (CARD DESIGN)
 ======================================== */
 .welcome-box {
     position: relative;
     z-index: 10;
     text-align: center;
-    width: 100%;
-    max-width: 460px;
-    padding: 44px 40px;
-    background: rgba(30, 41, 59, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 90%;
+    max-width: 680px;
+    padding: 56px 40px 48px;
+    background: rgba(13, 17, 30, 0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 28px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(56, 189, 248, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.badge {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    color: #38bdf8;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+/* ========================================
+   LOGO & BOOK OVERLAY EFFECT
+======================================== */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
 }
 
-.welcome-box h1 {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+.logo-text {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -1px;
     color: #ffffff;
-    line-height: 1.2;
-    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-.welcome-box p {
-    font-size: 14px;
-    color: #94a3b8;
-    margin-bottom: 32px;
-    font-weight: 400;
-    line-height: 1.5;
+.book-icon-wrapper {
+    position: relative;
+    width: 80px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* รองรับทั้ง id #enterButton และ class .btn-primary */
-.welcome-box button,
+.book-layer {
+    position: absolute;
+    width: 60px;
+    height: 44px;
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+.layer-1 {
+    transform: translateX(-16px);
+    opacity: 0.9;
+}
+
+.layer-2 {
+    transform: translateX(0);
+    opacity: 0.95;
+}
+
+.layer-3 {
+    transform: translateX(16px);
+    opacity: 0.9;
+}
+
+.tm-badge {
+    position: absolute;
+    z-index: 5;
+    background: #090d16;
+    border: 1.5px solid #38bdf8;
+    color: #38bdf8;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 3.5px;
+    color: #c084fc;
+    margin-bottom: 40px;
+    text-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
+}
+
+/* ========================================
+   GET STARTED BUTTON
+======================================== */
 .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 15px 28px;
-    background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+    max-width: 280px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
     color: #ffffff;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
-    border-radius: 14px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
 }
 
-.welcome-box button:hover,
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.5);
-    background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 100%);
+    box-shadow: 0 12px 28px rgba(59, 130, 246, 0.5);
+    background: linear-gradient(135deg, #60a5fa 0%, #818cf8 100%);
 }
 
-.welcome-box button:hover svg,
 .btn-primary:hover svg {
     transform: translateX(4px);
 }
 
-.welcome-box button svg,
 .btn-primary svg {
     transition: transform 0.2s ease;
 }
 
-.welcome-box button:active,
 .btn-primary:active {
     transform: translateY(0);
 }
@@ -169,7 +208,7 @@ body {
     position: fixed;
     inset: 0;
     z-index: 100;
-    background: rgba(9, 13, 22, 0.75);
+    background: rgba(7, 9, 19, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     justify-content: center;
@@ -199,7 +238,6 @@ body {
 
 .modal.active .login-box {
     transform: scale(1);
-    animation: none; /* ใช้ Transition แทน Animation เก่าเพื่อความลื่นไหล */
 }
 
 .close-button {
@@ -233,16 +271,12 @@ body {
     margin-bottom: 6px;
 }
 
-.login-description,
 .modal-header p {
     font-size: 14px;
     color: #64748b;
     margin-bottom: 24px;
 }
 
-/* ========================================
-   INPUTS & BUTTONS IN MODAL
-======================================== */
 .input-group {
     margin-bottom: 20px;
     text-align: left;
