@@ -67,59 +67,35 @@
         <!-- Main Content -->
         <main class="main-content">
 
-            <header class="topbar">
-                <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">
-                    ☰
-                </button>
-                <h1>Home</h1>
-            </header>
-
             <section class="content">
 
-                <!-- Welcome Banner -->
-                <div class="welcome-card">
-                    <h2 id="welcomeGreeting">Welcome to AllbookTM Dashboard 👋</h2>
-                    <p>ศูนย์รวมคู่มือบริการ แนวทางการแก้ไขปัญหา และคลังข้อมูลสำหรับทีมงาน</p>
+                <!-- Mobile Menu Button Area (ไม่มี h1 Home แล้ว) -->
+                <div class="topbar-mobile-only">
+                    <button id="mobileMenuButton" class="mobile-menu-button" aria-label="Open navigation">
+                        ☰
+                    </button>
                 </div>
 
-                <!-- Main Modules Quick Access -->
-                <div class="section-title">📌 Quick Access</div>
-                <div class="dashboard-grid">
-
-                    <a href="service-manual.html" class="nav-card">
-                        <div class="nav-card-header">
-                            <div class="nav-card-icon">📖</div>
-                            <span class="nav-card-arrow">➔</span>
+                <!-- Clock & Weather Banner Widget -->
+                <div class="weather-clock-card">
+                    <div class="clock-section">
+                        <div id="digitalClock" class="clock-time">00:00:00</div>
+                        <div id="digitalDate" class="clock-date">Loading date...</div>
+                    </div>
+                    <div class="weather-section" id="weatherWidget">
+                        <div class="weather-icon" id="weatherIcon">🌤️</div>
+                        <div class="weather-info">
+                            <div class="weather-temp" id="weatherTemp">--°C</div>
+                            <div class="weather-location" id="weatherLocation">Detecting location...</div>
                         </div>
-                        <div class="nav-card-title">Service Manual</div>
-                        <div class="nav-card-desc">คู่มือการซ่อม บำรุงรักษา และ Diagram แยกตามหมวดหมู่อุปกรณ์</div>
-                    </a>
-
-                    <a href="troubleshooting.html" class="nav-card">
-                        <div class="nav-card-header">
-                            <div class="nav-card-icon">🔧</div>
-                            <span class="nav-card-arrow">➔</span>
-                        </div>
-                        <div class="nav-card-title">Troubleshooting</div>
-                        <div class="nav-card-desc">ค้นหาวิธีแก้ไขปัญหาตาม Error Code และอาการเสียหน้างาน</div>
-                    </a>
-
-                    <a href="exam.html" class="nav-card">
-                        <div class="nav-card-header">
-                            <div class="nav-card-icon">📝</div>
-                            <span class="nav-card-arrow">➔</span>
-                        </div>
-                        <div class="nav-card-title">Exam Answer Sheet</div>
-                        <div class="nav-card-desc">คลังเฉลยแบบทดสอบและเอกสารประเมินทักษะทางเทคนิค</div>
-                    </a>
-
+                    </div>
                 </div>
 
-                <!-- Useful External Tools & Links -->
+                <!-- Section: Tools & External Links -->
                 <div class="section-title">🛠 Tools & External Links</div>
                 <div class="tools-grid">
                     <a href="#" target="_blank" class="tool-card">
-                        <span>🖥</span> Windows OS Field Record
+                        <span>🖥</span> Windows & Tools
                     </a>
                     <a href="https://drive.google.com" target="_blank" class="tool-card">
                         <span>☁️</span> Google Drive Central
@@ -127,6 +103,37 @@
                     <a href="#" target="_blank" class="tool-card">
                         <span>📦</span> Spare Parts Request
                     </a>
+                </div>
+
+                <!-- Section: Download Center (Firmware & Software) -->
+                <div class="section-title">📦 Download Center</div>
+                <div class="download-container">
+                    <p class="download-subtitle">Firmware, Software Installers & Updates for Clinical Instruments</p>
+                    
+                    <div id="downloadTableList" class="download-table-wrapper">
+                        <!-- ตัวอย่าง UI ตารางแสดงผล (ในอนาคตจะดึงจาก Google Sheet มาสร้างอัตโนมัติ) -->
+                        <table class="download-table">
+                            <thead>
+                                <tr>
+                                    <th>Equipment Model</th>
+                                    <th>Install Version</th>
+                                    <th>Update Version</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="model-name">Sysmex XN-Series</td>
+                                    <td><a href="#" class="dl-btn install">Download Install (v2.1)</a></td>
+                                    <td><a href="#" class="dl-btn update">Download Update (v2.1.4)</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="model-name">Sysmex UN-Series</td>
+                                    <td><a href="#" class="dl-btn install">Download Install (v1.0)</a></td>
+                                    <td><span class="no-data">-</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </section>
