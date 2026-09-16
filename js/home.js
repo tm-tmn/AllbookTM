@@ -1,7 +1,10 @@
 /* ========================================
-   HOME DASHBOARD LOGIC (CLOCK & WEATHER)
+   HOME DASHBOARD LOGIC (CLOCK, WEATHER & DOWNLOADS)
 ======================================== */
 let currentSheetData = [];
+
+// ใช้ API_URL ตัวเดียวสืบทอดจาก Web App ของ Download Center
+const API_URL = "https://script.google.com/macros/s/AKfycbwULQcYLojlJezIc1_FWXkHeJxIqWa-vrNtyH_zzC9P5YiRlypXJuTldcl_GbGYwLSk/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
     initClock();
@@ -10,15 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
     initDownloadCenter();   
 });
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwHTzirucpV93BmjvTRBsG53IQnfTRTN6CZcNEvjSV8vzzzO5cl0jG4ecJdinbNOYqWxg/exec";
-const DL_API_URL = "https://script.google.com/macros/s/AKfycbwULQcYLojlJezIc1_FWXkHeJxIqWa-vrNtyH_zzC9P5YiRlypXJuTldcl_GbGYwLSk/exec";
-
+// ----------------------------------------
+// 1. DOWNLOAD CENTER LOGIC
+// ----------------------------------------
 async function initDownloadCenter() {
     const categorySelect = document.getElementById("categorySelect");
     const modelSelect = document.getElementById("modelSelect");
 
     try {
-        const res = await fetch(`${DL_API_URL}?action=getCategories`);
+        const res = await fetch(`${API_URL}?action=getCategories`, { redirect: "follow" });
         const result = await res.json();
 
         if (result.status === "success" && result.data.length > 0) {
@@ -60,8 +63,7 @@ async function loadCategoryData(categoryName) {
     modelSelect.disabled = true;
 
     try {
-
-        const res = await fetch(`${DL_API_URL}?action=getDownloadData&category=${encodeURIComponent(categoryName)}`);
+        const res = await fetch(`${API_URL}?action=getDownloadData&category=${encodeURIComponent(categoryName)}`, { redirect: "follow" });
         const result = await res.json();
 
         if (result.status === "success") {
@@ -69,17 +71,14 @@ async function loadCategoryData(categoryName) {
 
             const modelLabel = categoryName === "ALL" ? "แสดงทุกรุ่น" : `แสดงทุกรุ่น (${categoryName})`;
             modelSelect.innerHTML = `<option value="ALL">-- ${modelLabel} --</option>`;
-            
 
-            const uniqueModels = [...new Set(currentSheetData.map(item => item.model))];
+            const uniqueModels = [...new Set(currentSheetData.map(item => item.model))].filter(Boolean);
             
             uniqueModels.forEach(model => {
-                if (model) {
-                    const opt = document.createElement("option");
-                    opt.value = model;
-                    opt.textContent = model;
-                    modelSelect.appendChild(opt);
-                }
+                const opt = document.createElement("option");
+                opt.value = model;
+                opt.textContent = model;
+                modelSelect.appendChild(opt);
             });
 
             modelSelect.disabled = false;
@@ -90,7 +89,6 @@ async function loadCategoryData(categoryName) {
         tableBody.innerHTML = `<tr><td colspan="4" class="table-loading" style="color:#ef4444;">เกิดข้อผิดพลาดในการดึงข้อมูล</td></tr>`;
     }
 }
-
 
 function renderTableData(selectedModel) {
     const tableBody = document.getElementById("downloadCenterBody");
@@ -112,8 +110,8 @@ function renderTableData(selectedModel) {
         const updateBtn = formatLinkBtn(item.updateLink, "Update");
 
         tr.innerHTML = `
-            <td class="model-name">${item.model}</td>
-            <td style="text-align: center;">${item.version}</td>
+            <td class="model-name">${item.model || "-"}</td>
+            <td style="text-align: center;">${item.version || "-"}</td>
             <td style="text-align: center;">${installBtn}</td>
             <td style="text-align: center;">${updateBtn}</td>
         `;
@@ -123,29 +121,25 @@ function renderTableData(selectedModel) {
 
 function formatLinkBtn(url, label) {
     if (!url || url === "-") return `<span class="no-data">-</span>`;
-    let targetUrl = url.trim();
+    let targetUrl = String(url).trim();
     if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
         targetUrl = `https://${targetUrl}`;
     }
     const btnClass = label.toLowerCase() === "install" ? "install" : "update";
-    return `<a href="${targetUrl}" target="_blank" class="dl-btn ${btnClass}"> Download ${label}</a>`;
+    return `<a href="${targetUrl}" target="_blank" class="dl-btn ${btnClass}">Download ${label}</a>`;
 }
 
+// ----------------------------------------
+// 2. WINDOWS & TOOLS LOGIC (ดึงจาก Sheet "link")
+// ----------------------------------------
 async function fetchWindowsTools() {
     const tableBody = document.getElementById("windowsToolsBody");
 
     try {
-        // เพิ่ม redirect: "follow" และ timestamp เพื่อป้องกัน Cache ค้าง
         const response = await fetch(`${API_URL}?action=getWindowsTools&_t=${Date.now()}`, {
             method: "GET",
             redirect: "follow"
         });
-
-        // ตรวจสอบว่า Response กลับมาเป็น JSON หรือไม่
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-            throw new Error("Google Apps Script ส่งค่ากลับมาไม่ใช่ JSON (คาดว่าติดสิทธิ์ Access หรือ 404)");
-        }
 
         const result = await response.json();
 
@@ -161,7 +155,7 @@ async function fetchWindowsTools() {
                 }
 
                 tr.innerHTML = `
-                    <td class="model-name">${item.name}</td>
+                    <td class="model-name">${item.name || "-"}</td>
                     <td style="text-align: center;">
                         <a href="${targetUrl}" target="_blank" class="dl-btn direct">
                             <span>⬇️</span> Download File
@@ -179,6 +173,9 @@ async function fetchWindowsTools() {
     }
 }
 
+// ----------------------------------------
+// 3. CLOCK & WEATHER LOGIC
+// ----------------------------------------
 function initClock() {
     function updateClock() {
         const now = new Date();
@@ -186,10 +183,15 @@ function initClock() {
         const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById("digitalClock").textContent = `${hours}:${minutes}:${seconds}`;
+        
+        const clockEl = document.getElementById("digitalClock");
+        const dateEl = document.getElementById("digitalDate");
 
-        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-        document.getElementById("digitalDate").textContent = now.toLocaleDateString('en-US', options);
+        if (clockEl) clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+        if (dateEl) {
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            dateEl.textContent = now.toLocaleDateString('en-US', options);
+        }
     }
 
     updateClock();
@@ -214,22 +216,22 @@ function initWeather() {
                     const temp = Math.round(data.current_weather.temperature);
                     const weatherCode = data.current_weather.weathercode;
 
-                    tempEl.textContent = `${temp}°C`;
-                    locationEl.textContent = "Current Location";
-                    iconEl.textContent = getWeatherIcon(weatherCode);
+                    if (tempEl) tempEl.textContent = `${temp}°C`;
+                    if (locationEl) locationEl.textContent = "Current Location";
+                    if (iconEl) iconEl.textContent = getWeatherIcon(weatherCode);
 
                 } catch (err) {
                     console.error("Error fetching weather:", err);
-                    locationEl.textContent = "Weather unavailable";
+                    if (locationEl) locationEl.textContent = "Weather unavailable";
                 }
             },
             (error) => {
                 console.warn("Geolocation permission denied/failed:", error.message);
-                locationEl.textContent = "Location access denied";
+                if (locationEl) locationEl.textContent = "Location access denied";
             }
         );
     } else {
-        locationEl.textContent = "Geolocation not supported";
+        if (locationEl) locationEl.textContent = "Geolocation not supported";
     }
 }
 
