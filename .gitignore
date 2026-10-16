@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Secrets - ห้าม commit เด็ดขาด
+.env
+.env.*
+!.env.example
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+
+# Build output (ถ้ามีในอนาคต)
+dist/
+.vercel/
