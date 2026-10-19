@@ -42,58 +42,51 @@ function closeLogin() {
 
 
 // =========================
-// Get Today's Password
-// =========================
-
-function getTodayPassword() {
-
-    const today = new Date();
-
-    const day = String(today.getDate()).padStart(2, "0");
-
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-
-    const year = today.getFullYear();
-
-    return `${day}${month}${year}`;
-
-}
-
-
-// =========================
 // Login
+// ตรวจสอบรหัสผ่านผ่าน /api/login (ฝั่ง server จริง)
+// แทนการเทียบวันที่ ddmmyyyy ที่คำนวณฝั่ง client แบบเดิม
+// server จะตอบกลับด้วย cookie "session" ที่เซ็นแบบ HMAC
+// ซึ่ง middleware.js จะเป็นคนตรวจสอบก่อนเสิร์ฟหน้าที่ต้อง login
 // =========================
 
-function login() {
+async function login() {
 
     const enteredPassword = passwordInput.value.trim();
 
-    const todayPassword = getTodayPassword();
+    if (!enteredPassword) {
+        loginError.textContent = "กรุณากรอกรหัสผ่าน";
+        return;
+    }
 
+    loginButton.disabled = true;
+    loginError.textContent = "";
 
-    if (enteredPassword === todayPassword) {
+    try {
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "same-origin",
+            body: JSON.stringify({ password: enteredPassword }),
+        });
 
-        sessionStorage.setItem(
-            "teamWebsiteLogin",
-            "true"
-        );
+        if (response.ok) {
+            window.location.href = "home.html";
+            return;
+        }
 
-        sessionStorage.setItem(
-            "teamWebsiteLoginTime",
-            Date.now().toString()
-        );
+        if (response.status === 401) {
+            loginError.textContent = "Password ไม่ถูกต้อง";
+        } else {
+            loginError.textContent = "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง";
+        }
 
-        window.location.href = "home.html";
-
-    } else {
-
-        loginError.textContent =
-            "Password ไม่ถูกต้อง";
-
+    } catch (err) {
+        console.error("Login request failed:", err);
+        loginError.textContent = "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่";
+    } finally {
+        loginButton.disabled = false;
         passwordInput.value = "";
-
         passwordInput.focus();
-
     }
 
 }

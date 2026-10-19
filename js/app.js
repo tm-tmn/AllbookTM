@@ -1,28 +1,22 @@
 /* ========================================
    SESSION CONFIGURATION
+   หมายเหตุ: การป้องกันที่แท้จริงอยู่ที่ middleware.js (ฝั่ง server)
+   แล้ว — ถ้าสคริปต์นี้รันได้ แปลว่า middleware อนุญาตให้เข้าหน้านี้
+   อยู่แล้ว โค้ดส่วนนี้ทำหน้าที่แค่ UX: นับเวลา inactivity และ
+   เรียก logout ให้ cookie ฝั่ง server ถูกเคลียร์เมื่อ user ไม่ได้ใช้งาน
 ======================================== */
 
 const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 Minutes
 const MAX_SESSION_TIME = 30 * 60 * 1000; // 30 Minutes
 
-/* ========================================
-   CHECK LOGIN STATUS
-======================================== */
-
-const isLoggedIn = sessionStorage.getItem("teamWebsiteLogin");
-const loginTime = Number(sessionStorage.getItem("teamWebsiteLoginTime"));
-
-if (isLoggedIn !== "true" || !loginTime) {
-    window.location.href = "index.html";
-}
+const sessionStartedAt = Date.now();
 
 /* ========================================
    CHECK MAX SESSION LIFETIME
 ======================================== */
 
 function checkSessionLifetime() {
-    const currentTime = Date.now();
-    const sessionAge = currentTime - loginTime;
+    const sessionAge = Date.now() - sessionStartedAt;
 
     if (sessionAge >= MAX_SESSION_TIME) {
         logout();
@@ -64,12 +58,19 @@ resetInactivityTimer();
 
 /* ========================================
    LOGOUT FUNCTION
+   เรียก /api/logout เพื่อให้ server เคลียร์ cookie "session"
+   (httpOnly แก้ด้วย JS ตรง ๆ ไม่ได้ ต้องให้ server สั่ง Set-Cookie
+   หมดอายุ) แล้วค่อย redirect กลับหน้า login
 ======================================== */
 
-function logout() {
-    sessionStorage.removeItem("teamWebsiteLogin");
-    sessionStorage.removeItem("teamWebsiteLoginTime");
-    window.location.href = "index.html";
+async function logout() {
+    try {
+        await fetch("/api/logout", { method: "POST", credentials: "same-origin" });
+    } catch (err) {
+        console.error("Logout request failed:", err);
+    } finally {
+        window.location.href = "index.html";
+    }
 }
 
 /* ========================================
