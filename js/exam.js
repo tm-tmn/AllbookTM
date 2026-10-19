@@ -43,7 +43,7 @@ function displayExamFolders(folders) {
 
         card.innerHTML = `
             <div class="exam-folder-icon">📁</div>
-            <div class="exam-folder-name">${folder.name}</div>
+            <div class="exam-folder-name">${escapeHtml(folder.name)}</div>
         `;
 
         // เพิ่ม Event Listener เพื่อกดดูรูปภาพในโฟลเดอร์
@@ -80,7 +80,7 @@ async function loadExamImages(folderId, folderName) {
     grid.innerHTML = `<div class="exam-loading">กำลังโหลดรูปภาพ...</div>`;
 
     try {
-        const response = await fetch(`${API_URL}?action=examImages&folderId=${folderId}`);
+        const response = await fetch(`${API_URL}?action=examImages&folderId=${encodeURIComponent(folderId)}`);
         const images = await response.json();
 
         if (!images || images.length === 0) {
@@ -107,14 +107,17 @@ function displayExamImages(images) {
         const item = document.createElement("div");
         item.className = "exam-image-card";
 
-        const imageUrl = img.url ? `${img.url}=s400` : `https://lh3.googleusercontent.com/d/${img.id}=s400`;
-        const fullImageUrl = img.url ? `${img.url}=s1600` : `https://lh3.googleusercontent.com/d/${img.id}=s1600`;
+        const rawThumb = img.url ? `${img.url}=s400` : `https://lh3.googleusercontent.com/d/${encodeURIComponent(img.id)}=s400`;
+        const rawFull = img.url ? `${img.url}=s1600` : `https://lh3.googleusercontent.com/d/${encodeURIComponent(img.id)}=s1600`;
+        // ป้องกัน javascript: หรือ scheme อันตรายอื่น ยอมรับเฉพาะ http/https
+        const imageUrl = /^https?:\/\//i.test(rawThumb) ? rawThumb : "";
+        const fullImageUrl = /^https?:\/\//i.test(rawFull) ? rawFull : "";
 
         item.innerHTML = `
             <div class="exam-image-wrapper">
-                <img src="${imageUrl}" alt="${img.name}" loading="lazy">
+                <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(img.name)}" loading="lazy">
             </div>
-            <div class="exam-image-name">${img.name}</div>
+            <div class="exam-image-name">${escapeHtml(img.name)}</div>
         `;
 
         // คลิกที่รูปเพื่อเปิด Modal Viewer

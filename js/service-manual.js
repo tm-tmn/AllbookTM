@@ -45,9 +45,12 @@ function openPdfModal(fileUrl, fileName) {
     const iframe = document.getElementById("pdfFrame"); // ✅ แก้เป็น pdfFrame ให้ตรงกับ HTML
     const downloadBtn = document.getElementById("pdfDownloadBtn"); // ✅ แก้เป็น pdfDownloadBtn ให้ตรงกับ HTML
 
+    // ป้องกัน javascript: หรือ scheme อันตรายอื่น ยอมรับเฉพาะ http/https
+    const safeUrl = typeof fileUrl === "string" && /^https?:\/\//i.test(fileUrl) ? fileUrl : "";
+
     if (modalTitle) modalTitle.textContent = fileName || "PDF Document";
-    if (downloadBtn) downloadBtn.href = fileUrl;
-    if (iframe) iframe.src = fileUrl;
+    if (downloadBtn) downloadBtn.href = safeUrl;
+    if (iframe) iframe.src = safeUrl;
 
     if (modal) {
         modal.classList.add("active");
@@ -208,7 +211,7 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
         card.className = "manual-card";
         card.innerHTML = `
             <div class="manual-icon">📁</div>
-            <div class="manual-name" title="${folder.name}">${folder.name}</div>
+            <div class="manual-name" title="${escapeHtml(folder.name)}">${escapeHtml(folder.name)}</div>
             <span class="manual-tag">Folder</span>
         `;
 
@@ -224,7 +227,7 @@ function navigateToFolder(folderPath, folderName, isRoot = false) {
         card.className = "manual-card";
         card.innerHTML = `
             <div class="manual-icon">📄</div>
-            <div class="manual-name" title="${file.name}">${file.name}</div>
+            <div class="manual-name" title="${escapeHtml(file.name)}">${escapeHtml(file.name)}</div>
             <span class="manual-tag">PDF</span>
         `;
 

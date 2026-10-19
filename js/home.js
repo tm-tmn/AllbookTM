@@ -112,8 +112,8 @@ function renderTableData(selectedModel) {
         const updateBtn = formatLinkBtn(item.updateLink, "Update");
 
         tr.innerHTML = `
-            <td class="model-name">${item.model || "-"}</td>
-            <td style="text-align: center;">${item.version || "-"}</td>
+            <td class="model-name">${escapeHtml(item.model) || "-"}</td>
+            <td style="text-align: center;">${escapeHtml(item.version) || "-"}</td>
             <td style="text-align: center;">${installBtn}</td>
             <td style="text-align: center;">${updateBtn}</td>
         `;
@@ -127,8 +127,10 @@ function formatLinkBtn(url, label) {
     if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
         targetUrl = `https://${targetUrl}`;
     }
+    // ป้องกัน javascript: หรือ scheme อันตรายอื่นที่อาจหลุดมาจาก Sheet
+    if (!/^https?:\/\//i.test(targetUrl)) return `<span class="no-data">-</span>`;
     const btnClass = label.toLowerCase() === "install" ? "install" : "update";
-    return `<a href="${targetUrl}" target="_blank" class="dl-btn ${btnClass}">Download ${label}</a>`;
+    return `<a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer" class="dl-btn ${btnClass}">Download ${escapeHtml(label)}</a>`;
 }
 
 // ----------------------------------------
@@ -155,13 +157,14 @@ async function fetchWindowsTools() {
                 if (targetUrl && !targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
                     targetUrl = `https://${targetUrl}`;
                 }
+                const safeUrl = /^https?:\/\//i.test(targetUrl) ? targetUrl : "";
 
                 tr.innerHTML = `
-                    <td class="model-name">${item.name || "-"}</td>
+                    <td class="model-name">${escapeHtml(item.name) || "-"}</td>
                     <td style="text-align: center;">
-                        <a href="${targetUrl}" target="_blank" class="dl-btn direct">
-                            <span>⬇️</span> Download File
-                        </a>
+                        ${safeUrl
+                            ? `<a href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer" class="dl-btn direct"><span>⬇️</span> Download File</a>`
+                            : `<span class="no-data">-</span>`}
                     </td>
                 `;
                 tableBody.appendChild(tr);
